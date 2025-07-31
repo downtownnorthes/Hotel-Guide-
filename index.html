@@ -27,7 +27,7 @@
             padding: 0 1.5rem;
         }
         .accordion-button.active + .accordion-content {
-            max-height: 2200px; /* Increased for menu content */
+            max-height: 3000px; /* Increased for full menu content */
             padding: 1rem 1.5rem 1.5rem;
         }
         .accordion-button .icon {
@@ -85,17 +85,42 @@
             opacity: 0; /* Start hidden */
             animation: fadeInUp 0.7s ease-out forwards;
         }
+        /* Language Selector Styles */
+        .lang-selector button {
+            transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+            opacity: 0.7;
+        }
+        .lang-selector button:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        .lang-selector button.active {
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#1ED087] to-teal-500 dark:from-teal-800 dark:to-gray-900">
     <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
         
+        <!-- Language Selector -->
+        <div class="lang-selector flex justify-center space-x-3 sm:space-x-4 mb-8">
+            <button onclick="translatePage('en')" class="active" title="English"><img src="https://flagcdn.com/w40/us.png" alt="USA Flag"></button>
+            <button onclick="translatePage('es')" title="Español"><img src="https://flagcdn.com/w40/es.png" alt="Spain Flag"></button>
+            <button onclick="translatePage('de')" title="Deutsch"><img src="https://flagcdn.com/w40/de.png" alt="Germany Flag"></button>
+            <button onclick="translatePage('fr')" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="France Flag"></button>
+            <button onclick="translatePage('zh')" title="中文"><img src="https://flagcdn.com/w40/cn.png" alt="China Flag"></button>
+            <button onclick="translatePage('ja')" title="日本語"><img src="https://flagcdn.com/w40/jp.png" alt="Japan Flag"></button>
+        </div>
+
         <!-- Header -->
         <header class="text-center mb-10">
             <div class="flex justify-center items-center gap-4 mb-4 animate-fade-in-down">
-                <h1 class="font-display text-4xl sm:text-5xl font-bold text-white uppercase tracking-wider">Embassy Suites Downtown North</h1>
+                <h1 class="font-display text-4xl sm:text-5xl font-bold text-white uppercase tracking-wider" data-key="hotel_name">Embassy Suites Downtown North</h1>
             </div>
-            <p class="font-cursive text-3xl text-green-100 dark:text-teal-200 mt-2 tracking-wide animate-fade-in-down" style="animation-delay: 0.2s;">Your Quick Guest Guide</p>
+            <p class="font-cursive text-3xl text-green-100 dark:text-teal-200 mt-2 tracking-wide animate-fade-in-down" style="animation-delay: 0.2s;" data-key="guest_guide_subtitle">Your Quick Guest Guide</p>
         </header>
 
         <!-- Main Content Container with Glass Effect -->
@@ -108,18 +133,18 @@
                     <button class="accordion-button w-full flex justify-between items-center p-4 sm:p-5 text-left text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#1ED087]/60 rounded-xl">
                         <div class="flex items-center">
                             <svg class="w-7 h-7 mr-4" style="color: #1ED087" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V7.618a1 1 0 01.553-.894L9 4l6.447 2.724A1 1 0 0116 7.618v8.764a1 1 0 01-.553.894L9 20z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l6-3"></path></svg>
-                            <span>General Parking ($32 Daily)</span>
+                            <span data-key="parking_title">General Parking ($32 Daily)</span>
                         </div>
                         <svg class="icon w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
                         <ul class="list-disc list-inside space-y-3 text-gray-700 dark:text-gray-300">
-                            <li>Have your license plate number ready at check-in.</li>
-                            <li>The Front Desk will provide a parking tag and a special <strong class="font-semibold" style="color: #1ED087">HOTEL GUEST PASS</strong>.</li>
-                            <li>Park anywhere in the garage that is <strong class="text-red-500">NOT LABELED RED AND RESERVED</strong>.</li>
-                            <li class="font-bold text-yellow-500 dark:text-yellow-400">Important: To enter and exit, insert the HOTEL GUEST PASS into the ticket slot. DO NOT press the button for a new ticket.</li>
-                            <li>The hotel will not refund payments made directly to the garage.</li>
-                            <li>Return any extra tickets obtained from the garage machine to the Front Desk.</li>
+                            <li data-key="parking_1">Have your license plate number ready at check-in.</li>
+                            <li data-key="parking_2">The Front Desk will provide a parking tag and a special <strong class="font-semibold" style="color: #1ED087">HOTEL GUEST PASS</strong>.</li>
+                            <li data-key="parking_3">Park anywhere in the garage that is <strong class="text-red-500">NOT LABELED RED AND RESERVED</strong>.</li>
+                            <li data-key="parking_4" class="font-bold text-yellow-500 dark:text-yellow-400">Important: To enter and exit, insert the HOTEL GUEST PASS into the ticket slot. DO NOT press the button for a new ticket.</li>
+                            <li data-key="parking_5">The hotel will not refund payments made directly to the garage.</li>
+                            <li data-key="parking_6">Return any extra tickets obtained from the garage machine to the Front Desk.</li>
                         </ul>
                     </div>
                 </div>
@@ -129,127 +154,148 @@
                     <button class="accordion-button w-full flex justify-between items-center p-4 sm:p-5 text-left text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#1ED087]/60 rounded-xl">
                         <div class="flex items-center">
                             <svg class="w-7 h-7 mr-4" style="color: #1ED087" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0c-.454-.303-.977-.454-1.5-.454V5.454c0-.523.151-1.046.454-1.5a2.704 2.704 0 013 0 2.704 2.704 0 003 0 2.704 2.704 0 013 0 2.704 2.704 0 003 0c.303.454.454.977.454 1.5v10.092zM15 11a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-                            <span>Dining & Drinks</span>
+                            <span data-key="dining_title">Dining & Drinks</span>
                         </div>
                         <svg class="icon w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
                         <div class="space-y-4 text-gray-700 dark:text-gray-300">
                             <div>
-                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2">Complimentary Breakfast</h3>
-                                <p><strong class="font-medium">Weekdays:</strong> 6:00 am - 9:00 am</p>
-                                <p><strong class="font-medium">Weekends:</strong> 7:30 am - 10:30 am</p>
-                                <p class="text-sm mt-1">Located past the Front Desk in the lobby.</p>
+                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2" data-key="bfast_title">Complimentary Breakfast</h3>
+                                <p><strong class="font-medium" data-key="bfast_weekdays">Weekdays:</strong> 6:00 am - 9:00 am</p>
+                                <p><strong class="font-medium" data-key="bfast_weekends">Weekends:</strong> 7:30 am - 10:30 am</p>
+                                <p class="text-sm mt-1" data-key="bfast_location">Located past the Front Desk in the lobby.</p>
                             </div>
                             <div class="border-t border-gray-300 dark:border-gray-700 my-4"></div>
                             <div>
-                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2">Manager's Reception</h3>
-                                <p><strong class="font-medium">Nightly:</strong> 5:30 pm - 7:00 pm</p>
+                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2" data-key="reception_title">Manager's Reception</h3>
+                                <p><strong class="font-medium" data-key="reception_time">Nightly:</strong> 5:30 pm - 7:00 pm</p>
                             </div>
                              <div class="border-t border-gray-300 dark:border-gray-700 my-4"></div>
                             <div>
-                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2">Salt River Tavern</h3>
-                                <p><strong class="font-medium">Hours:</strong> 5:00 pm - 10:00 pm</p>
-                                <p class="text-sm mt-1">Room service available (Ext. 2107).</p>
+                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2" data-key="tavern_name">Salt River Tavern</h3>
+                                <p><strong class="font-medium" data-key="tavern_hours">Hours:</strong> 5:00 pm - 10:00 pm</p>
+                                <p class="text-sm mt-1" data-key="tavern_room_service">Room service available (Ext. 2107).</p>
                                 
-                                <!-- Menu Section -->
                                 <div class="mt-6 space-y-6">
                                     <!-- Starters -->
                                     <div>
-                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1">Starters</h4>
+                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1" data-key="menu_starters">Starters</h4>
                                         <div class="space-y-3">
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Rustic Tortilla Soup</span><span>$9</span></div>
-                                                <p class="menu-item-description">Free range grilled chicken, tortilla strips and queso fresco.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_soup">Rustic Tortilla Soup</span><span>$9</span></div>
+                                                <p class="menu-item-description" data-key="desc_soup">Free range grilled chicken, tortilla strips and queso fresco.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Flat Bread</span><span>$15</span></div>
-                                                <p class="menu-item-description">Local Schreiner's smoked italian sausage, melted burrata cheese, roasted pepper jam.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_flatbread">Flat Bread</span><span>$15</span></div>
+                                                <p class="menu-item-description" data-key="desc_flatbread">Local Schreiner's smoked italian sausage, melted burrata cheese, roasted pepper jam.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Brussels & Bacon</span><span>$12</span></div>
-                                                <p class="menu-item-description">Crispy brussels sprouts, apple wood bacon, sweet aged balsamic glaze, spiced candied walnut, shaved parmesan cheese.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_brussels">Brussels & Bacon</span><span>$12</span></div>
+                                                <p class="menu-item-description" data-key="desc_brussels">Crispy brussels sprouts, apple wood bacon, sweet aged balsamic glaze, spiced candied walnut, shaved parmesan cheese.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Grilled Chicken Wings</span><span>$16</span></div>
-                                                <p class="menu-item-description">Choice of our SRT dry rub, blazing buffalo, honey mesquite BBQ or spiced garlic glaze.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_wings">Grilled Chicken Wings</span><span>$16</span></div>
+                                                <p class="menu-item-description" data-key="desc_wings">Choice of our SRT dry rub, blazing buffalo, honey mesquite BBQ or spiced garlic glaze.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Salads -->
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1" data-key="menu_salads">Salads</h4>
+                                        <div class="space-y-3">
+                                            <div class="menu-item">
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_babybleu">Baby Bleu Greens</span><span>$12</span></div>
+                                                <p class="menu-item-description" data-key="desc_babybleu">South mountain baby greens, oven roasted pepitas, red delicious apples, crumbled bleu cheese, & age balsamic vinaigrette.</p>
+                                            </div>
+                                            <div class="menu-item">
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_spinach">Spinach & Walnut</span><span>$12</span></div>
+                                                <p class="menu-item-description" data-key="desc_spinach">Arizona cherry tomatoes, baked candied walnuts, queso fresco cheese, bumble bee honey mustard dressing.</p>
+                                            </div>
+                                             <div class="menu-item">
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_caesar">S.R.T. Romaine Caesar</span><span>$11</span></div>
+                                                <p class="menu-item-description" data-key="desc_caesar">Garlic herbed crostini, shaved parmigiana reggiano cheese, S.R.T. caesar dressing.</p>
+                                            </div>
+                                             <div class="menu-item">
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_cobb">Arizona Corb Salad</span><span>$12</span></div>
+                                                <p class="menu-item-description" data-key="desc_cobb">Fire roasted corn, chile & lime napolitos, heirloom tomatoes, habanero bacon, manchego cheese.</p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Handheld -->
                                     <div>
-                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1">Handheld</h4>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Served with french fries or fresh fruit.</p>
+                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1" data-key="menu_handheld">Handheld</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3" data-key="desc_handheld">Served with french fries or fresh fruit.</p>
                                         <div class="space-y-3">
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Grilled Turkey Club</span><span>$16</span></div>
-                                                <p class="menu-item-description">Maple cured bacon, shaved Boars Head cracked pepper mill turkey, lettuce, tomato, munster cheese, toasted multi grain, & cranberry aoli.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_club">Grilled Turkey Club</span><span>$16</span></div>
+                                                <p class="menu-item-description" data-key="desc_club">Maple cured bacon, shaved Boars Head cracked pepper mill turkey, lettuce, tomato, munster cheese, toasted multi grain, & cranberry aoli.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>*Steakhouse Burger</span><span>$17</span></div>
-                                                <p class="menu-item-description">Certified angus beef, butter lettuce, tomato, fried onions, brioche bun, your choice of cheese.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_burger">*Steakhouse Burger</span><span>$17</span></div>
+                                                <p class="menu-item-description" data-key="desc_burger">Certified angus beef, butter lettuce, tomato, fried onions, brioche bun, your choice of cheese.</p>
                                             </div>
                                              <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Pastrami Rueben</span><span>$16</span></div>
-                                                <p class="menu-item-description">Hand trimmed Boars Head pastrami, chipotle gouda cheese, S.R.T. cole slaw, 1000 island dressing, oven baked marble rye.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_pastrami">Pastrami Rueben</span><span>$16</span></div>
+                                                <p class="menu-item-description" data-key="desc_pastrami">Hand trimmed Boars Head pastrami, chipotle gouda cheese, S.R.T. cole slaw, 1000 island dressing, oven baked marble rye.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>*Black & Bleu Burger</span><span>$18</span></div>
-                                                <p class="menu-item-description">Sonoran spiced angus beef, melted bleu cheese, pico de gallo, brioche bun.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_blackbleu">*Black & Bleu Burger</span><span>$18</span></div>
+                                                <p class="menu-item-description" data-key="desc_blackbleu">Sonoran spiced angus beef, melted bleu cheese, pico de gallo, brioche bun.</p>
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <!-- Main Plates -->
                                     <div>
-                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1">Main Plate</h4>
+                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1" data-key="menu_mainplate">Main Plate</h4>
                                         <div class="space-y-3">
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>*Wild Caught Alaskan Salmon</span><span>$29</span></div>
-                                                <p class="menu-item-description">Creamy saffron risotto, prosciutto wrapped asparagus, ancho chile raspberry.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_salmon">*Wild Caught Alaskan Salmon</span><span>$29</span></div>
+                                                <p class="menu-item-description" data-key="desc_salmon">Creamy saffron risotto, prosciutto wrapped asparagus, ancho chile raspberry.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Bourbon Glazed Free Range Chicken</span><span>$27</span></div>
-                                                <p class="menu-item-description">Oven roasted baby yukon potatoes, sauteed baby spinach & mushrooms, Buffalo Trace bourbon glaze.</p>
-                                            </div>
-                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Pork Loin Chop</span><span>$28</span></div>
-                                                <p class="menu-item-description">Fried sweet potatoes, baby carrots, braised swiss chard.</p>
-                                            </div>
-                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>*Filet Mignon & Lobster Ravioli</span><span>$34</span></div>
-                                                <p class="menu-item-description">Grilled asparagus, roasted fingerling potatoes, spring cherries glaze.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_chicken">Bourbon Glazed Free Range Chicken</span><span>$27</span></div>
+                                                <p class="menu-item-description" data-key="desc_chicken">Oven roasted baby yukon potatoes, sauteed baby spinach & mushrooms, Buffalo Trace bourbon glaze.</p>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>*Aged Prime New York Strip</span><span>$35</span></div>
-                                                <p class="menu-item-description">Boursin whipped potatoes, sauteed vegetables, horseradish demi glaze.</p>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_porkchop">Pork Loin Chop</span><span>$28</span></div>
+                                                <p class="menu-item-description" data-key="desc_porkchop">Fried sweet potatoes, baby carrots, braised swiss chard.</p>
+                                            </div>
+                                            <div class="menu-item">
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_filet">*Filet Mignon & Lobster Ravioli</span><span>$34</span></div>
+                                                <p class="menu-item-description" data-key="desc_filet">Grilled asparagus, roasted fingerling potatoes, spring cherries glaze.</p>
+                                            </div>
+                                            <div class="menu-item">
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_strip">*Aged Prime New York Strip</span><span>$35</span></div>
+                                                <p class="menu-item-description" data-key="desc_strip">Boursin whipped potatoes, sauteed vegetables, horseradish demi glaze.</p>
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <!-- Dessert -->
                                     <div>
-                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1">Dessert</h4>
+                                        <h4 class="font-bold text-lg text-gray-800 dark:text-white mb-3 border-b border-gray-300 dark:border-gray-600 pb-1" data-key="menu_dessert">Dessert</h4>
                                         <div class="space-y-3">
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Too Tall Carrot Cake</span><span>$8</span></div>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_cake">Too Tall Carrot Cake</span><span>$8</span></div>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Deep Dish Caramel Apple Pie</span><span>$8</span></div>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_pie">Deep Dish Caramel Apple Pie</span><span>$8</span></div>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>New York Cheesecake</span><span>$8</span></div>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_cheesecake">New York Cheesecake</span><span>$8</span></div>
                                             </div>
                                             <div class="menu-item">
-                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span>Chocolate Cake</span><span>$8</span></div>
+                                                <div class="flex justify-between font-semibold text-black dark:text-gray-200"><span data-key="item_choc_cake">Chocolate Cake</span><span>$8</span></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Asterisk Disclaimer -->
                                 <div class="mt-8 pt-4 border-t border-gray-300 dark:border-gray-700">
-                                    <p class="text-xs italic text-gray-600 dark:text-gray-400">
+                                    <p class="text-xs italic text-gray-600 dark:text-gray-400" data-key="menu_disclaimer">
                                         *These items may contain raw or undercooked ingredients. Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.
                                     </p>
                                 </div>
@@ -263,24 +309,24 @@
                     <button class="accordion-button w-full flex justify-between items-center p-4 sm:p-5 text-left text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#1ED087]/60 rounded-xl">
                         <div class="flex items-center">
                              <svg class="w-7 h-7 mr-4" style="color: #1ED087" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.293 2.293a1 1 0 010 1.414L13.414 10l1.879 1.879a1 1 0 010 1.414L13 15.586V18h2.414l2.293-2.293a1 1 0 000-1.414L16.586 12l1.121-1.121a1 1 0 000-1.414L15 7.172l-2.293 2.293a1 1 0 01-1.414 0L9 7.172 6.707 4.879a1 1 0 010-1.414L9 1.172l2.293 2.293a1 1 0 001.414 0L15 1.172z"></path></svg>
-                            <span>Pool & Gym</span>
+                            <span data-key="amenities_title">Pool & Gym</span>
                         </div>
                         <svg class="icon w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
                          <div class="space-y-4 text-gray-700 dark:text-gray-300">
                             <div>
-                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2">Pool</h3>
-                                <p><strong class="font-medium">Hours:</strong> 7:00 am - 10:00 pm</p>
+                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2" data-key="pool_title">Pool</h3>
+                                <p><strong class="font-medium" data-key="pool_hours">Hours:</strong> 7:00 am - 10:00 pm</p>
                             </div>
                             <div class="border-t border-gray-300 dark:border-gray-700 my-4"></div>
                             <div>
-                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2">Gym</h3>
-                                <p><strong class="font-medium">Hours:</strong> Open 24/7</p>
+                                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2" data-key="gym_title">Gym</h3>
+                                <p><strong class="font-medium" data-key="gym_hours">Hours:</strong> Open 24/7</p>
                             </div>
                             <div class="border-t border-gray-300 dark:border-gray-700 my-4"></div>
                             <div>
-                                 <p class="text-sm font-semibold text-yellow-500 dark:text-yellow-400">Minors under 16 must be supervised by an individual over 18.</p>
+                                 <p class="text-sm font-semibold text-yellow-500 dark:text-yellow-400" data-key="amenities_disclaimer">Minors under 16 must be supervised by an individual over 18.</p>
                             </div>
                         </div>
                     </div>
@@ -291,17 +337,17 @@
                     <button class="accordion-button w-full flex justify-between items-center p-4 sm:p-5 text-left text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#1ED087]/60 rounded-xl">
                         <div class="flex items-center">
                             <svg class="w-7 h-7 mr-4" style="color: #1ED087" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a10 10 0 0114.142 0M1.394 8.111a15 15 0 0121.214 0"></path></svg>
-                            <span>Wi-Fi Access</span>
+                            <span data-key="wifi_title">Wi-Fi Access</span>
                         </div>
                         <svg class="icon w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
-                            <li>In your device's Wi-Fi settings, choose the <strong class="font-semibold" style="color: #1ED087">"Hilton Honors"</strong> network.</li>
-                            <li>Wait for the sign-in page. (If it doesn't load, open a browser and go to <code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>).</li>
-                            <li>On the sign-in page, find the promotional code field.</li>
-                            <li>Enter the code: <code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code></li>
-                            <li>For issues, call <strong class="font-semibold">(888)-830-5099</strong>.</li>
+                            <li data-key="wifi_1">In your device's Wi-Fi settings, choose the <strong class="font-semibold" style="color: #1ED087">"Hilton Honors"</strong> network.</li>
+                            <li data-key="wifi_2">Wait for the sign-in page. (If it doesn't load, open a browser and go to <code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>).</li>
+                            <li data-key="wifi_3">On the sign-in page, find the promotional code field.</li>
+                            <li data-key="wifi_4">Enter the code: <code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code></li>
+                            <li data-key="wifi_5">For issues, call <strong class="font-semibold">(888)-830-5099</strong>.</li>
                         </ol>
                     </div>
                 </div>
@@ -311,17 +357,17 @@
                     <button class="accordion-button w-full flex justify-between items-center p-4 sm:p-5 text-left text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#1ED087]/60 rounded-xl">
                         <div class="flex items-center">
                             <svg class="w-7 h-7 mr-4" style="color: #1ED087" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span>Hotel Information</span>
+                            <span data-key="info_title">Hotel Information</span>
                         </div>
                         <svg class="icon w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
                         <div class="space-y-3 text-gray-700 dark:text-gray-300">
-                            <p><strong class="font-medium w-24 inline-block">Checkout:</strong> 12:00 PM</p>
-                            <p><strong class="font-medium w-24 inline-block">Address:</strong> 10 East Thomas Road, Phoenix, AZ 85012</p>
-                            <p><strong class="font-medium w-24 inline-block">Phone:</strong> (602)-222-1111</p>
-                            <p><strong class="font-medium w-24 inline-block">Text:</strong> (928)-857-4811</p>
-                            <p><strong class="font-medium w-24 inline-block">Email:</strong> PHXES_FO@HILTON.COM</p>
+                            <p><strong class="font-medium w-24 inline-block" data-key="info_checkout_label">Checkout:</strong> <span data-key="info_checkout_time">12:00 PM</span></p>
+                            <p><strong class="font-medium w-24 inline-block" data-key="info_address_label">Address:</strong> <span data-key="info_address_value">10 East Thomas Road, Phoenix, AZ 85012</span></p>
+                            <p><strong class="font-medium w-24 inline-block" data-key="info_phone_label">Phone:</strong> <span data-key="info_phone_value">(602)-222-1111</span></p>
+                            <p><strong class="font-medium w-24 inline-block" data-key="info_text_label">Text:</strong> <span data-key="info_text_value">(928)-857-4811</span></p>
+                            <p><strong class="font-medium w-24 inline-block" data-key="info_email_label">Email:</strong> <span data-key="info_email_value">PHXES_FO@HILTON.COM</span></p>
                         </div>
                     </div>
                 </div>
@@ -331,27 +377,452 @@
         
         <!-- Footer -->
         <footer class="text-center mt-12">
-            <p class="font-cursive text-2xl text-white dark:text-white">For the Stay</p>
+            <p class="font-cursive text-2xl text-white dark:text-white" data-key="footer_slogan">For the Stay</p>
         </footer>
     </div>
 
     <script>
-        // JavaScript for accordion functionality
+        // --- TRANSLATION DATA ---
+        const translations = {
+            'en': {
+                hotel_name: "Embassy Suites Downtown North",
+                guest_guide_subtitle: "Your Quick Guest Guide",
+                parking_title: "General Parking ($32 Daily)",
+                parking_1: "Have your license plate number ready at check-in.",
+                parking_2: `The Front Desk will provide a parking tag and a special <strong class="font-semibold" style="color: #1ED087">HOTEL GUEST PASS</strong>.`,
+                parking_3: `Park anywhere in the garage that is <strong class="text-red-500">NOT LABELED RED AND RESERVED</strong>.`,
+                parking_4: `Important: To enter and exit, insert the HOTEL GUEST PASS into the ticket slot. DO NOT press the button for a new ticket.`,
+                parking_5: "The hotel will not refund payments made directly to the garage.",
+                parking_6: "Return any extra tickets obtained from the garage machine to the Front Desk.",
+                dining_title: "Dining & Drinks",
+                bfast_title: "Complimentary Breakfast",
+                bfast_weekdays: "Weekdays:",
+                bfast_weekends: "Weekends:",
+                bfast_location: "Located past the Front Desk in the lobby.",
+                reception_title: "Manager's Reception",
+                reception_time: "Nightly:",
+                tavern_name: "Salt River Tavern",
+                tavern_hours: "Hours:",
+                tavern_room_service: "Room service available (Ext. 2107).",
+                menu_starters: "Starters",
+                item_soup: "Rustic Tortilla Soup",
+                desc_soup: "Free range grilled chicken, tortilla strips and queso fresco.",
+                item_flatbread: "Flat Bread",
+                desc_flatbread: "Local Schreiner's smoked italian sausage, melted burrata cheese, roasted pepper jam.",
+                item_brussels: "Brussels & Bacon",
+                desc_brussels: "Crispy brussels sprouts, apple wood bacon, sweet aged balsamic glaze, spiced candied walnut, shaved parmesan cheese.",
+                item_wings: "Grilled Chicken Wings",
+                desc_wings: "Choice of our SRT dry rub, blazing buffalo, honey mesquite BBQ or spiced garlic glaze.",
+                menu_salads: "Salads",
+                item_babybleu: "Baby Bleu Greens",
+                desc_babybleu: "South mountain baby greens, oven roasted pepitas, red delicious apples, crumbled bleu cheese, & age balsamic vinaigrette.",
+                item_spinach: "Spinach & Walnut",
+                desc_spinach: "Arizona cherry tomatoes, baked candied walnuts, queso fresco cheese, bumble bee honey mustard dressing.",
+                item_caesar: "S.R.T. Romaine Caesar",
+                desc_caesar: "Garlic herbed crostini, shaved parmigiana reggiano cheese, S.R.T. caesar dressing.",
+                item_cobb: "Arizona Corb Salad",
+                desc_cobb: "Fire roasted corn, chile & lime napolitos, heirloom tomatoes, habanero bacon, manchego cheese.",
+                menu_handheld: "Handheld",
+                desc_handheld: "Served with french fries or fresh fruit.",
+                item_club: "Grilled Turkey Club",
+                desc_club: "Maple cured bacon, shaved Boars Head cracked pepper mill turkey, lettuce, tomato, munster cheese, toasted multi grain, & cranberry aoli.",
+                item_burger: "*Steakhouse Burger",
+                desc_burger: "Certified angus beef, butter lettuce, tomato, fried onions, brioche bun, your choice of cheese.",
+                item_pastrami: "Pastrami Rueben",
+                desc_pastrami: "Hand trimmed Boars Head pastrami, chipotle gouda cheese, S.R.T. cole slaw, 1000 island dressing, oven baked marble rye.",
+                item_blackbleu: "*Black & Bleu Burger",
+                desc_blackbleu: "Sonoran spiced angus beef, melted bleu cheese, pico de gallo, brioche bun.",
+                menu_mainplate: "Main Plate",
+                item_salmon: "*Wild Caught Alaskan Salmon",
+                desc_salmon: "Creamy saffron risotto, prosciutto wrapped asparagus, ancho chile raspberry.",
+                item_chicken: "Bourbon Glazed Free Range Chicken",
+                desc_chicken: "Oven roasted baby yukon potatoes, sauteed baby spinach & mushrooms, Buffalo Trace bourbon glaze.",
+                item_porkchop: "Pork Loin Chop",
+                desc_porkchop: "Fried sweet potatoes, baby carrots, braised swiss chard.",
+                item_filet: "*Filet Mignon & Lobster Ravioli",
+                desc_filet: "Grilled asparagus, roasted fingerling potatoes, spring cherries glaze.",
+                item_strip: "*Aged Prime New York Strip",
+                desc_strip: "Boursin whipped potatoes, sauteed vegetables, horseradish demi glaze.",
+                menu_dessert: "Dessert",
+                item_cake: "Too Tall Carrot Cake",
+                item_pie: "Deep Dish Caramel Apple Pie",
+                item_cheesecake: "New York Cheesecake",
+                item_choc_cake: "Chocolate Cake",
+                menu_disclaimer: "*These items may contain raw or undercooked ingredients. Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.",
+                amenities_title: "Pool & Gym",
+                pool_title: "Pool",
+                pool_hours: "Hours:",
+                gym_title: "Gym",
+                gym_hours: "Hours:",
+                amenities_disclaimer: "Minors under 16 must be supervised by an individual over 18.",
+                wifi_title: "Wi-Fi Access",
+                wifi_1: `In your device's Wi-Fi settings, choose the <strong class="font-semibold" style="color: #1ED087">"Hilton Honors"</strong> network.`,
+                wifi_2: `Wait for the sign-in page. (If it doesn't load, open a browser and go to <code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>).`,
+                wifi_3: "On the sign-in page, find the promotional code field.",
+                wifi_4: `Enter the code: <code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code>`,
+                wifi_5: `For issues, call <strong class="font-semibold">(888)-830-5099</strong>.`,
+                info_title: "Hotel Information",
+                info_checkout_label: "Checkout:",
+                info_checkout_time: "12:00 PM",
+                info_address_label: "Address:",
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012",
+                info_phone_label: "Phone:",
+                info_phone_value: "(602)-222-1111",
+                info_text_label: "Text:",
+                info_text_value: "(928)-857-4811",
+                info_email_label: "Email:",
+                info_email_value: "PHXES_FO@HILTON.COM",
+                footer_slogan: "For the Stay"
+            },
+            'es': {
+                hotel_name: "Embassy Suites Centro Norte",
+                guest_guide_subtitle: "Su Guía Rápida para Huéspedes",
+                parking_title: "Estacionamiento General ($32 por día)",
+                parking_1: "Tenga a mano el número de su matrícula al registrarse.",
+                parking_2: `La Recepción le proporcionará una etiqueta de estacionamiento y un <strong class="font-semibold" style="color: #1ED087">PASE ESPECIAL PARA HUÉSPEDES DEL HOTEL</strong>.`,
+                parking_3: `Estacione en cualquier lugar del garaje que <strong class="text-red-500">NO ESTÉ ETIQUETADO EN ROJO Y RESERVADO</strong>.`,
+                parking_4: `Importante: Para entrar y salir, inserte el PASE DE HUÉSPED DEL HOTEL en la ranura del boleto. NO presione el botón para obtener un nuevo boleto.`,
+                parking_5: "El hotel no reembolsará los pagos realizados directamente al garaje.",
+                parking_6: "Devuelva cualquier boleto adicional obtenido de la máquina del garaje a la Recepción.",
+                dining_title: "Comida y Bebidas",
+                bfast_title: "Desayuno de Cortesía",
+                bfast_weekdays: "Entre semana:",
+                bfast_weekends: "Fines de semana:",
+                bfast_location: "Ubicado pasando la Recepción en el vestíbulo.",
+                reception_title: "Recepción del Gerente",
+                reception_time: "Todas las noches:",
+                tavern_name: "Taberna Salt River",
+                tavern_hours: "Horario:",
+                tavern_room_service: "Servicio a la habitación disponible (Ext. 2107).",
+                menu_starters: "Entrantes",
+                item_soup: "Sopa de Tortilla Rústica",
+                desc_soup: "Pollo a la parrilla de corral, tiras de tortilla y queso fresco.",
+                item_flatbread: "Pan Plano",
+                desc_flatbread: "Salchicha italiana ahumada local de Schreiner, queso burrata derretido, mermelada de pimiento asado.",
+                item_brussels: "Coles de Bruselas y Tocino",
+                desc_brussels: "Coles de Bruselas crujientes, tocino de madera de manzano, glaseado balsámico dulce envejecido, nueces confitadas especiadas, queso parmesano rallado.",
+                item_wings: "Alitas de Pollo a la Parrilla",
+                desc_wings: "Elección de nuestro adobo seco SRT, búfalo picante, barbacoa de miel y mezquite o glaseado de ajo especiado.",
+                menu_salads: "Ensaladas",
+                item_babybleu: "Verdes Baby Bleu",
+                desc_babybleu: "Verdes baby de South Mountain, pepitas tostadas al horno, manzanas red delicious, queso azul desmenuzado y vinagreta balsámica envejecida.",
+                item_spinach: "Espinacas y Nueces",
+                desc_spinach: "Tomates cherry de Arizona, nueces confitadas al horno, queso fresco, aderezo de mostaza y miel.",
+                item_caesar: "Ensalada César S.R.T. a la Romana",
+                desc_caesar: "Crostini con hierbas y ajo, queso parmigiano reggiano rallado, aderezo César S.R.T.",
+                item_cobb: "Ensalada Corb de Arizona",
+                desc_cobb: "Maíz asado al fuego, nopalitos con chile y lima, tomates heirloom, tocino con habanero, queso manchego.",
+                menu_handheld: "Bocadillos",
+                desc_handheld: "Servido con papas fritas o fruta fresca.",
+                item_club: "Club Sándwich de Pavo a la Parrilla",
+                desc_club: "Tocino curado con arce, pavo Boars Head molido a la pimienta, lechuga, tomate, queso munster, pan multigrano tostado y alioli de arándano.",
+                item_burger: "*Hamburguesa de Asador",
+                desc_burger: "Carne de res Angus certificada, lechuga mantequilla, tomate, cebolla frita, pan brioche, su elección de queso.",
+                item_pastrami: "Sándwich de Pastrami Reuben",
+                desc_pastrami: "Pastrami Boars Head recortado a mano, queso gouda chipotle, ensalada de col S.R.T., aderezo mil islas, pan de centeno marmoleado horneado.",
+                item_blackbleu: "*Hamburguesa Black & Bleu",
+                desc_blackbleu: "Carne de res Angus con especias de Sonora, queso azul derretido, pico de gallo, pan brioche.",
+                menu_mainplate: "Plato Principal",
+                item_salmon: "*Salmón Salvaje de Alaska",
+                desc_salmon: "Risotto cremoso de azafrán, espárragos envueltos en prosciutto, frambuesa con chile ancho.",
+                item_chicken: "Pollo de Corral Glaseado con Bourbon",
+                desc_chicken: "Papas baby yukon asadas al horno, espinacas baby y champiñones salteados, glaseado de bourbon Buffalo Trace.",
+                item_porkchop: "Chuleta de Lomo de Cerdo",
+                desc_porkchop: "Batatas fritas, zanahorias baby, acelgas estofadas.",
+                item_filet: "*Filete Miñón y Ravioles de Langosta",
+                desc_filet: "Espárragos a la parrilla, papas alevines asadas, glaseado de cerezas de primavera.",
+                item_strip: "*Bistec New York Prime Añejo",
+                desc_strip: "Puré de papas batido con Boursin, verduras salteadas, demi-glace de rábano picante.",
+                menu_dessert: "Postre",
+                item_cake: "Pastel de Zanahoria Demasiado Alto",
+                item_pie: "Tarta de Manzana y Caramelo Honda",
+                item_cheesecake: "Tarta de Queso de Nueva York",
+                item_choc_cake: "Pastel de Chocolate",
+                menu_disclaimer: "*Estos productos pueden contener ingredientes crudos o poco cocidos. El consumo de carnes, aves, mariscos o huevos crudos o poco cocidos puede aumentar el riesgo de enfermedades transmitidas por los alimentos.",
+                amenities_title: "Piscina y Gimnasio",
+                pool_title: "Piscina",
+                pool_hours: "Horario:",
+                gym_title: "Gimnasio",
+                gym_hours: "Horario:",
+                amenities_disclaimer: "Los menores de 16 años deben ser supervisados por una persona mayor de 18 años.",
+                wifi_title: "Acceso a Wi-Fi",
+                wifi_1: `En la configuración de Wi-Fi de su dispositivo, elija la red <strong class="font-semibold" style="color: #1ED087">"Hilton Honors"</strong>.`,
+                wifi_2: `Espere la página de inicio de sesión. (Si no se carga, abra un navegador y vaya a <code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>).`,
+                wifi_3: "En la página de inicio de sesión, busque el campo del código promocional.",
+                wifi_4: `Ingrese el código: <code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code>`,
+                wifi_5: `Para problemas, llame al <strong class="font-semibold">(888)-830-5099</strong>.`,
+                info_title: "Información del Hotel",
+                info_checkout_label: "Salida:",
+                info_checkout_time: "12:00 PM",
+                info_address_label: "Dirección:",
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012",
+                info_phone_label: "Teléfono:",
+                info_phone_value: "(602)-222-1111",
+                info_text_label: "Texto:",
+                info_text_value: "(928)-857-4811",
+                info_email_label: "Correo:",
+                info_email_value: "PHXES_FO@HILTON.COM",
+                footer_slogan: "Para la Estancia"
+            },
+            'de': {
+                hotel_name: "Embassy Suites Downtown Nord",
+                guest_guide_subtitle: "Ihr schneller Gäste-Leitfaden",
+                parking_title: "Allgemeines Parken (32 $ täglich)",
+                parking_1: "Halten Sie Ihr Nummernschild beim Check-in bereit.",
+                parking_2: `Die Rezeption stellt Ihnen einen Parkausweis und einen speziellen <strong class="font-semibold" style="color: #1ED087">HOTEL-GÄSTEPASS</strong> zur Verfügung.`,
+                parking_3: `Parken Sie überall in der Garage, die <strong class="text-red-500">NICHT ROT UND RESERVIERT</strong> gekennzeichnet ist.`,
+                parking_4: `Wichtig: Zum Ein- und Ausfahren den HOTEL-GÄSTEPASS in den Ticketschlitz einführen. Drücken Sie NICHT den Knopf für ein neues Ticket.`,
+                parking_5: "Das Hotel erstattet keine Zahlungen, die direkt an die Garage geleistet werden.",
+                parking_6: "Geben Sie zusätzliche Tickets, die Sie vom Automaten in der Garage erhalten, an der Rezeption zurück.",
+                dining_title: "Speisen & Getränke",
+                bfast_title: "Kostenloses Frühstück",
+                bfast_weekdays: "Wochentags:",
+                bfast_weekends: "Wochenenden:",
+                bfast_location: "Befindet sich hinter der Rezeption in der Lobby.",
+                reception_title: "Empfang des Managers",
+                reception_time: "Täglich:",
+                tavern_name: "Salt River Taverne",
+                tavern_hours: "Öffnungszeiten:",
+                tavern_room_service: "Zimmerservice verfügbar (Durchwahl 2107).",
+                menu_starters: "Vorspeisen",
+                item_soup: "Rustikale Tortillasuppe",
+                desc_soup: "Gegrilltes Hähnchen aus Freilandhaltung, Tortillastreifen und Queso Fresco.",
+                item_flatbread: "Fladenbrot",
+                desc_flatbread: "Lokale geräucherte italienische Wurst von Schreiner, geschmolzener Burrata-Käse, geröstete Paprikamarmelade.",
+                menu_handheld: "Handgerichte",
+                desc_handheld: "Serviert mit Pommes Frites oder frischem Obst.",
+                item_club: "Gegrillter Truthahn-Club",
+                desc_club: "Ahorn-gepökelter Speck, gehobelter Boars Head Truthahn mit Pfeffermühle, Salat, Tomate, Münsterkäse, getoastetes Mehrkornbrot & Cranberry-Aioli.",
+                item_burger: "*Steakhouse-Burger",
+                desc_burger: "Zertifiziertes Angus-Rindfleisch, Butterkopfsalat, Tomate, Röstzwiebeln, Brioche-Brötchen, Käse nach Wahl.",
+                menu_disclaimer: "*Diese Produkte können rohe oder ungekochte Zutaten enthalten. Der Verzehr von rohem oder ungekochtem Fleisch, Geflügel, Meeresfrüchten oder Eiern kann das Risiko lebensmittelbedingter Krankheiten erhöhen.",
+                amenities_title: "Pool & Fitnessstudio",
+                pool_title: "Pool",
+                pool_hours: "Öffnungszeiten:",
+                gym_title: "Fitnessstudio",
+                gym_hours: "Öffnungszeiten:",
+                amenities_disclaimer: "Minderjährige unter 16 Jahren müssen von einer Person über 18 Jahren beaufsichtigt werden.",
+                wifi_title: "WLAN-Zugang",
+                wifi_1: `Wählen Sie in den WLAN-Einstellungen Ihres Geräts das Netzwerk <strong class="font-semibold" style="color: #1ED087">"Hilton Honors"</strong>.`,
+                wifi_2: `Warten Sie auf die Anmeldeseite. (Wenn sie nicht geladen wird, öffnen Sie einen Browser und gehen Sie zu <code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>).`,
+                wifi_3: "Suchen Sie auf der Anmeldeseite das Feld für den Aktionscode.",
+                wifi_4: `Geben Sie den Code ein: <code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code>`,
+                wifi_5: `Bei Problemen rufen Sie <strong class="font-semibold">(888)-830-5099</strong> an.`,
+                info_title: "Hotelinformationen",
+                info_checkout_label: "Check-out:",
+                info_checkout_time: "12:00 Uhr",
+                info_address_label: "Adresse:",
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012",
+                info_phone_label: "Telefon:",
+                info_phone_value: "(602)-222-1111",
+                info_text_label: "Text:",
+                info_text_value: "(928)-857-4811",
+                info_email_label: "Email:",
+                info_email_value: "PHXES_FO@HILTON.COM",
+                footer_slogan: "Für den Aufenthalt"
+            },
+            'fr': {
+                hotel_name: "Embassy Suites Centre-ville Nord",
+                guest_guide_subtitle: "Votre Guide Rapide",
+                parking_title: "Parking Général (32 $ par jour)",
+                parking_1: "Ayez votre numéro de plaque d'immatriculation à portée de main lors de l'enregistrement.",
+                parking_2: `La réception vous fournira une vignette de stationnement et un <strong class="font-semibold" style="color: #1ED087">PASS SPÉCIAL CLIENT DE L'HÔTEL</strong>.`,
+                parking_3: `Garez-vous n'importe où dans le garage qui n'est <strong class="text-red-500">PAS ÉTIQUETÉ EN ROUGE ET RÉSERVÉ</strong>.`,
+                parking_4: `Important : Pour entrer et sortir, insérez le PASS CLIENT DE L'HÔTEL dans la fente à ticket. N'appuyez PAS sur le bouton pour un nouveau ticket.`,
+                parking_5: "L'hôtel ne remboursera pas les paiements effectués directement au garage.",
+                parking_6: "Veuillez retourner à la réception tout ticket supplémentaire obtenu à la machine du garage.",
+                dining_title: "Restauration et Boissons",
+                bfast_title: "Petit-déjeuner Offert",
+                bfast_weekdays: "En semaine :",
+                bfast_weekends: "Week-ends :",
+                bfast_location: "Situé après la réception dans le hall.",
+                reception_title: "Réception du Directeur",
+                reception_time: "Tous les soirs :",
+                tavern_name: "Taverne Salt River",
+                tavern_hours: "Heures :",
+                tavern_room_service: "Service en chambre disponible (Poste 2107).",
+                menu_starters: "Entrées",
+                item_soup: "Soupe Tortilla Rustique",
+                desc_soup: "Poulet grillé fermier, lanières de tortilla et queso fresco.",
+                item_flatbread: "Pain Plat",
+                desc_flatbread: "Saucisse italienne fumée locale de Schreiner, fromage burrata fondu, confiture de poivrons rôtis.",
+                menu_handheld: "Sandwichs",
+                desc_handheld: "Servi avec des frites ou des fruits frais.",
+                item_club: "Club Sandwich à la Dinde Grillée",
+                desc_club: "Bacon au sirop d'érable, dinde Boars Head au poivre, laitue, tomate, fromage munster, pain multigrains grillé et aïoli aux canneberges.",
+                item_burger: "*Burger Steakhouse",
+                desc_burger: "Bœuf Angus certifié, laitue beurre, tomate, oignons frits, pain brioché, votre choix de fromage.",
+                menu_disclaimer: "*Ces articles peuvent contenir des ingrédients crus ou insuffisamment cuits. La consommation de viandes, volailles, fruits de mer ou œufs crus ou insuffisamment cuits peut augmenter le risque de maladies d'origine alimentaire.",
+                amenities_title: "Piscine et Salle de Sport",
+                pool_title: "Piscine",
+                pool_hours: "Heures :",
+                gym_title: "Salle de Sport",
+                gym_hours: "Heures :",
+                amenities_disclaimer: "Les mineurs de moins de 16 ans doivent être supervisés par une personne de plus de 18 ans.",
+                wifi_title: "Accès Wi-Fi",
+                wifi_1: `Dans les paramètres Wi-Fi de votre appareil, choisissez le réseau <strong class="font-semibold" style="color: #1ED087">"Hilton Honors"</strong>.`,
+                wifi_2: `Attendez la page de connexion. (Si elle ne se charge pas, ouvrez un navigateur et allez sur <code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>).`,
+                wifi_3: "Sur la page de connexion, trouvez le champ du code promotionnel.",
+                wifi_4: `Entrez le code : <code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code>`,
+                wifi_5: `En cas de problème, appelez le <strong class="font-semibold">(888)-830-5099</strong>.`,
+                info_title: "Informations sur l'Hôtel",
+                info_checkout_label: "Départ :",
+                info_checkout_time: "12:00",
+                info_address_label: "Adresse :",
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012",
+                info_phone_label: "Téléphone :",
+                info_phone_value: "(602)-222-1111",
+                info_text_label: "Texte :",
+                info_text_value: "(928)-857-4811",
+                info_email_label: "Email :",
+                info_email_value: "PHXES_FO@HILTON.COM",
+                footer_slogan: "Pour le Séjour"
+            },
+            'zh': {
+                hotel_name: "市中心北使馆套房酒店",
+                guest_guide_subtitle: "您的快速宾客指南",
+                parking_title: "普通停车（每日32美元）",
+                parking_1: "办理入住时请准备好您的车牌号码。",
+                parking_2: `前台将为您提供停车牌和一张特殊的<strong class="font-semibold" style="color: #1ED087">酒店客人通行证</strong>。`,
+                parking_3: `请将车停在车库中任何<strong class="text-red-500">未标示红色和预留</strong>的车位。`,
+                parking_4: `重要提示：进出车库时，请将酒店客人通行证插入出票口。请勿按鈕取新票。`,
+                parking_5: "酒店不退还直接支付给车库的款项。",
+                parking_6: "请将从车库机器获得的任何多余停车票交还给前台。",
+                dining_title: "餐饮",
+                bfast_title: "免费早餐",
+                bfast_weekdays: "工作日：",
+                bfast_weekends: "周末：",
+                bfast_location: "位于大堂前台后方。",
+                reception_title: "经理招待会",
+                reception_time: "每晚：",
+                tavern_name: "盐河酒馆",
+                tavern_hours: "营业时间：",
+                tavern_room_service: "提供客房服务（分机2107）。",
+                menu_starters: "开胃菜",
+                item_soup: "乡村玉米饼汤",
+                desc_soup: "走地烤鸡、玉米饼条和新鲜奶酪。",
+                item_flatbread: "扁面包",
+                desc_flatbread: "本地Schreiner's烟熏意大利香肠、融化的布拉塔奶酪、烤甜椒酱。",
+                menu_handheld: "手持美食",
+                desc_handheld: "配薯条或新鲜水果。",
+                item_club: "烤火鸡总汇三明治",
+                desc_club: "枫糖腌培根、Boars Head碎黑胡椒火鸡、生菜、番茄、明斯特奶酪、烤杂粮面包和蔓越莓蒜泥蛋黄酱。",
+                item_burger: "*牛排汉堡",
+                desc_burger: "认证安格斯牛肉、黄油生菜、番茄、炸洋葱、奶油蛋卷面包、自选奶酪。",
+                menu_disclaimer: "*这些食物可能含有生或未煮熟的成分。食用生或未煮熟的肉类、家禽、海鲜或鸡蛋可能会增加食源性疾病的风险。",
+                amenities_title: "游泳池和健身房",
+                pool_title: "游泳池",
+                pool_hours: "开放时间：",
+                gym_title: "健身房",
+                gym_hours: "开放时间：",
+                amenities_disclaimer: "16岁以下的未成年人必须由18岁以上的成年人陪同。",
+                wifi_title: "Wi-Fi接入",
+                wifi_1: `在您设备的Wi-Fi设置中，选择<strong class="font-semibold" style="color: #1ED087">“Hilton Honors”</strong>网络。`,
+                wifi_2: `等待登录页面。（如果未加载，请打开浏览器并访问<code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>）。`,
+                wifi_3: "在登录页面上，找到促销代码字段。",
+                wifi_4: `输入代码：<code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code>`,
+                wifi_5: `如有问题，请致电<strong class="font-semibold">(888)-830-5099</strong>。`,
+                info_title: "酒店信息",
+                info_checkout_label: "退房：",
+                info_checkout_time: "中午12:00",
+                info_address_label: "地址：",
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012",
+                info_phone_label: "电话：",
+                info_phone_value: "(602)-222-1111",
+                info_text_label: "短信：",
+                info_text_value: "(928)-857-4811",
+                info_email_label: "电邮：",
+                info_email_value: "PHXES_FO@HILTON.COM",
+                footer_slogan: "为您的住宿"
+            },
+            'ja': {
+                hotel_name: "エンバシー・スイーツ・ダウンタウン・ノース",
+                guest_guide_subtitle: "クイックゲストガイド",
+                parking_title: "一般駐車場（毎日32ドル）",
+                parking_1: "チェックイン時にナンバープレート番号をご用意ください。",
+                parking_2: `フロントデスクで駐車タグと特別な<strong class="font-semibold" style="color: #1ED087">ホテルゲストパス</strong>をお渡しします。`,
+                parking_3: `<strong class="text-red-500">赤色で予約済みと表示されていない</strong>ガレージ内の任意の場所に駐車してください。`,
+                parking_4: `重要：入出庫の際は、チケットスロットにホテルゲストパスを挿入してください。新しいチケットのボタンを押さないでください。`,
+                parking_5: "ガレージに直接支払われた料金はホテルでは返金いたしかねます。",
+                parking_6: "ガレージの機械から取得した余分なチケットはフロントデスクにご返却ください。",
+                dining_title: "お食事＆お飲み物",
+                bfast_title: "無料の朝食",
+                bfast_weekdays: "平日：",
+                bfast_weekends: "週末：",
+                bfast_location: "ロビーのフロントデスクを過ぎた場所にあります。",
+                reception_title: "支配人レセプション",
+                reception_time: "毎晩：",
+                tavern_name: "ソルトリバータバーン",
+                tavern_hours: "営業時間：",
+                tavern_room_service: "ルームサービスをご利用いただけます（内線2107）。",
+                menu_starters: "前菜",
+                item_soup: "ラスティックトルティーヤスープ",
+                desc_soup: "放し飼いのグリルチキン、トルティーヤストリップ、ケソフレスコ。",
+                item_flatbread: "フラットブレッド",
+                desc_flatbread: "地元のシュライナーズスモークイタリアンソーセージ、溶けたブッラータチーズ、ローストペッパージャム。",
+                menu_handheld: "サンドイッチ類",
+                desc_handheld: "フライドポテトまたは新鮮なフルーツを添えて。",
+                item_club: "グリルターキークラブ",
+                desc_club: "メープル硬化ベーコン、削りたてのボアズヘッドペッパーミルターキー、レタス、トマト、ミュンスターチーズ、トーストしたマルチグレイン、クランベリーアイオリ。",
+                item_burger: "*ステーキハウスバーガー",
+                desc_burger: "認定アンガスビーフ、バターレタス、トマト、フライドオニオン、ブリオッシュバン、お好みのチーズ。",
+                menu_disclaimer: "*これらの品目には生または加熱が不十分な成分が含まれている場合があります。生または加熱が不十分な肉、鶏肉、魚介類、または卵を摂取すると、食中毒のリスクが高まる可能性があります。",
+                amenities_title: "プール＆ジム",
+                pool_title: "プール",
+                pool_hours: "営業時間：",
+                gym_title: "ジム",
+                gym_hours: "営業時間：",
+                amenities_disclaimer: "16歳未満の未成年者は、18歳以上の個人が監督する必要があります。",
+                wifi_title: "Wi-Fiアクセス",
+                wifi_1: `お使いのデバイスのWi-Fi設定で、<strong class="font-semibold" style="color: #1ED087">「ヒルトン・オナーズ」</strong>ネットワークを選択してください。`,
+                wifi_2: `サインインページが表示されるまでお待ちください。（表示されない場合は、ブラウザを開いて<code class="bg-gray-200 dark:bg-gray-700 rounded px-1">CNN.COM</code>にアクセスしてください）。`,
+                wifi_3: "サインインページで、プロモーションコードのフィールドを見つけてください。",
+                wifi_4: `コードを入力してください：<code class="bg-green-100 text-teal-800 dark:bg-teal-900 dark:text-green-200 rounded-md px-2 py-1 font-mono text-lg shadow-inner">E2025</code>`,
+                wifi_5: `問題がある場合は、<strong class="font-semibold">(888)-830-5099</strong>までお電話ください。`,
+                info_title: "ホテル情報",
+                info_checkout_label: "チェックアウト：",
+                info_checkout_time: "午後12:00",
+                info_address_label: "住所：",
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012",
+                info_phone_label: "電話：",
+                info_phone_value: "(602)-222-1111",
+                info_text_label: "テキスト：",
+                info_text_value: "(928)-857-4811",
+                info_email_label: "Eメール：",
+                info_email_value: "PHXES_FO@HILTON.COM",
+                footer_slogan: "ご滞在のために"
+            }
+        };
+
+        // --- TRANSLATION FUNCTION ---
+        function translatePage(language) {
+            // Fallback to English if a translation is missing
+            const langData = { ...translations['en'], ...translations[language] };
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (langData[key]) {
+                    element.innerHTML = langData[key];
+                }
+            });
+            // Update active button
+            document.querySelectorAll('.lang-selector button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.lang-selector button[onclick="translatePage('${language}')"]`).classList.add('active');
+        }
+
+        // --- ACCORDION FUNCTIONALITY ---
         document.addEventListener('DOMContentLoaded', function () {
             const accordion = document.getElementById('infoAccordion');
             if(accordion) {
                 const buttons = accordion.querySelectorAll('.accordion-button');
-
                 buttons.forEach(button => {
                     button.addEventListener('click', () => {
                         const wasActive = button.classList.contains('active');
-                        
-                        // Close all buttons before opening the new one
                         buttons.forEach(otherButton => {
                             otherButton.classList.remove('active');
                         });
-
-                        // If the button was not active, open it.
                         if (!wasActive) {
                             button.classList.add('active');
                         }
@@ -360,6 +831,5 @@
             }
         });
     </script>
-
 </body>
 </html>
