@@ -120,7 +120,6 @@
             <div class="flex justify-center items-center gap-4 mb-4 animate-fade-in-down">
                 <h1 class="font-display text-4xl sm:text-5xl font-bold text-white uppercase tracking-wider" data-key="hotel_name">Embassy Suites Downtown North</h1>
             </div>
-            <p class="font-cursive text-3xl text-green-100 dark:text-teal-200 mt-2 tracking-wide animate-fade-in-down" style="animation-delay: 0.2s;" data-key="guest_guide_subtitle">Your Quick Guest Guide</p>
         </header>
 
         <!-- Main Content Container with Glass Effect -->
@@ -324,10 +323,10 @@
                                 <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2" data-key="gym_title">Gym</h3>
                                 <p><strong class="font-medium" data-key="gym_hours">Hours:</strong> Open 24/7</p>
                             </div>
-                            <div class="border-t border-gray-300 dark:border-gray-700 my-4"></div>
-                            <div>
+                             <div class="border-t border-gray-300 dark:border-gray-700 my-4"></div>
+                             <div>
                                  <p class="text-sm font-semibold text-yellow-500 dark:text-yellow-400" data-key="amenities_disclaimer">Minors under 16 must be supervised by an individual over 18.</p>
-                            </div>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -386,7 +385,6 @@
         const translations = {
             'en': {
                 hotel_name: "Embassy Suites Downtown North",
-                guest_guide_subtitle: "Your Quick Guest Guide",
                 parking_title: "General Parking ($32 Daily)",
                 parking_1: "Have your license plate number ready at check-in.",
                 parking_2: `The Front Desk will provide a parking tag and a special <strong class="font-semibold" style="color: #1ED087">HOTEL GUEST PASS</strong>.`,
@@ -476,7 +474,6 @@
             },
             'es': {
                 hotel_name: "Embassy Suites Centro Norte",
-                guest_guide_subtitle: "Su Guía Rápida para Huéspedes",
                 parking_title: "Estacionamiento General ($32 por día)",
                 parking_1: "Tenga a mano el número de su matrícula al registrarse.",
                 parking_2: `La Recepción le proporcionará una etiqueta de estacionamiento y un <strong class="font-semibold" style="color: #1ED087">PASE ESPECIAL PARA HUÉSPEDES DEL HOTEL</strong>.`,
@@ -566,7 +563,6 @@
             },
             'de': {
                 hotel_name: "Embassy Suites Downtown Nord",
-                guest_guide_subtitle: "Ihr schneller Gäste-Leitfaden",
                 parking_title: "Allgemeines Parken (32 $ täglich)",
                 parking_1: "Halten Sie Ihr Nummernschild beim Check-in bereit.",
                 parking_2: `Die Rezeption stellt Ihnen einen Parkausweis und einen speziellen <strong class="font-semibold" style="color: #1ED087">HOTEL-GÄSTEPASS</strong> zur Verfügung.`,
@@ -623,7 +619,6 @@
             },
             'fr': {
                 hotel_name: "Embassy Suites Centre-ville Nord",
-                guest_guide_subtitle: "Votre Guide Rapide",
                 parking_title: "Parking Général (32 $ par jour)",
                 parking_1: "Ayez votre numéro de plaque d'immatriculation à portée de main lors de l'enregistrement.",
                 parking_2: `La réception vous fournira une vignette de stationnement et un <strong class="font-semibold" style="color: #1ED087">PASS SPÉCIAL CLIENT DE L'HÔTEL</strong>.`,
@@ -680,7 +675,6 @@
             },
             'zh': {
                 hotel_name: "市中心北使馆套房酒店",
-                guest_guide_subtitle: "您的快速宾客指南",
                 parking_title: "普通停车（每日32美元）",
                 parking_1: "办理入住时请准备好您的车牌号码。",
                 parking_2: `前台将为您提供停车牌和一张特殊的<strong class="font-semibold" style="color: #1ED087">酒店客人通行证</strong>。`,
@@ -737,7 +731,6 @@
             },
             'ja': {
                 hotel_name: "エンバシー・スイーツ・ダウンタウン・ノース",
-                guest_guide_subtitle: "クイックゲストガイド",
                 parking_title: "一般駐車場（毎日32ドル）",
                 parking_1: "チェックイン時にナンバープレート番号をご用意ください。",
                 parking_2: `フロントデスクで駐車タグと特別な<strong class="font-semibold" style="color: #1ED087">ホテルゲストパス</strong>をお渡しします。`,
@@ -820,9 +813,11 @@
                 buttons.forEach(button => {
                     button.addEventListener('click', () => {
                         const wasActive = button.classList.contains('active');
+                        // Close all accordions
                         buttons.forEach(otherButton => {
                             otherButton.classList.remove('active');
                         });
+                        // Toggle the clicked one
                         if (!wasActive) {
                             button.classList.add('active');
                         }
@@ -833,3 +828,4 @@
     </script>
 </body>
 </html>
+
