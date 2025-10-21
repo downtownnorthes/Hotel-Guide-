@@ -110,13 +110,13 @@
     <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl relative">
         
         <!-- Language Selector -->
-        <div class="lang-selector flex justify-center space-x-3 sm:space-x-4 mb-8">
-            <button onclick="translatePage('en')" class="active" title="English"><img src="https://flagcdn.com/w40/us.png" alt="USA Flag"></button>
-            <button onclick="translatePage('es')" title="Español"><img src="https://flagcdn.com/w40/es.png" alt="Spain Flag"></button>
-            <button onclick="translatePage('de')" title="Deutsch"><img src="https://flagcdn.com/w40/de.png" alt="Germany Flag"></button>
-            <button onclick="translatePage('fr')" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="France Flag"></button>
-            <button onclick="translatePage('zh')" title="中文"><img src="https://flagcdn.com/w40/cn.png" alt="China Flag"></button>
-            <button onclick="translatePage('ja')" title="日本語"><img src="https://flagcdn.com/w40/jp.png" alt="Japan Flag"></button>
+        <div id="languageSelector" class="lang-selector flex justify-center space-x-3 sm:space-x-4 mb-8">
+            <button data-lang="en" class="active" title="English"><img src="https://flagcdn.com/w40/us.png" alt="USA Flag"></button>
+            <button data-lang="es" title="Español"><img src="https://flagcdn.com/w40/es.png" alt="Spain Flag"></button>
+            <button data-lang="de" title="Deutsch"><img src="https://flagcdn.com/w40/de.png" alt="Germany Flag"></button>
+            <button data-lang="fr" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="France Flag"></button>
+            <button data-lang="zh" title="中文"><img src="https://flagcdn.com/w40/cn.png" alt="China Flag"></button>
+            <button data-lang="ja" title="日本語"><img src="https://flagcdn.com/w40/jp.png" alt="Japan Flag"></button>
         </div>
 
         <!-- Header -->
@@ -791,47 +791,61 @@
             }
         };
 
-        // --- TRANSLATION FUNCTION ---
-        function translatePage(language) {
-            // Fallback to English if a translation is missing
-            const langData = { ...translations['en'], ...translations[language] };
-
-            document.querySelectorAll('[data-key]').forEach(element => {
-                const key = element.getAttribute('data-key');
-                if (langData[key]) {
-                    element.innerHTML = langData[key];
-                }
-            });
-            // Update active button
-            document.querySelectorAll('.lang-selector button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.lang-selector button[onclick="translatePage('${language}')"]`).classList.add('active');
-        }
-
-        // --- ACCORDION FUNCTIONALITY ---
+        // --- REFACTORED AND MORE EFFICIENT SCRIPT ---
         document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- TRANSLATION FUNCTION ---
+            function translatePage(language) {
+                const langData = { ...translations['en'], ...translations[language] };
+
+                document.querySelectorAll('[data-key]').forEach(element => {
+                    const key = element.getAttribute('data-key');
+                    if (langData[key]) {
+                        element.innerHTML = langData[key];
+                    }
+                });
+            }
+            
+            // --- EVENT DELEGATION FOR LANGUAGE SELECTOR ---
+            // A single event listener on the parent container is more efficient.
+            const languageSelector = document.getElementById('languageSelector');
+            if (languageSelector) {
+                languageSelector.addEventListener('click', function(e) {
+                    const button = e.target.closest('button[data-lang]');
+                    if (!button) return; // Exit if click was not on a language button
+
+                    const language = button.dataset.lang;
+                    translatePage(language);
+                    
+                    // Update active button state
+                    languageSelector.querySelector('button.active').classList.remove('active');
+                    button.classList.add('active');
+                });
+            }
+
+            // --- EVENT DELEGATION FOR ACCORDION ---
+            // A single event listener on the accordion container is more efficient 
+            // than adding one to every single button.
             const accordion = document.getElementById('infoAccordion');
-            if(accordion) {
-                const buttons = accordion.querySelectorAll('.accordion-button');
-                buttons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const wasActive = button.classList.contains('active');
-                        // Close all accordions
-                        buttons.forEach(otherButton => {
-                            otherButton.classList.remove('active');
-                        });
-                        // Toggle the clicked one
-                        if (!wasActive) {
-                            button.classList.add('active');
-                        }
-                    });
+            if (accordion) {
+                const allButtons = accordion.querySelectorAll('.accordion-button');
+                accordion.addEventListener('click', function(e) {
+                    const button = e.target.closest('.accordion-button');
+                    if (!button) return; // Exit if click was not on a button
+
+                    const wasActive = button.classList.contains('active');
+                    
+                    // Close all other accordion items
+                    allButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Toggle the clicked one
+                    if (!wasActive) {
+                        button.classList.add('active');
+                    }
                 });
             }
         });
     </script>
 </body>
 </html>
-
-
 
