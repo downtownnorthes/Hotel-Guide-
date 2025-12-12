@@ -232,8 +232,9 @@
 
     <!-- Backgrounds -->
     <div class="fixed inset-0 z-[-2]">
-        <!-- Christmas Background -->
-        <img src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=2000&auto=format&fit=crop" alt="Christmas Tree Background" class="w-full h-full object-cover object-center scale-105 filter blur-sm transition-all duration-700 brightness-110 dark:brightness-[0.5]">
+        <!-- OPTIMIZED Christmas Background: Reduced width to 1200px and quality to 60% for speed -->
+        <!-- REPLACE THE URL BELOW WITH YOUR OWN IMAGE URL IF DESIRED -->
+        <img src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=60&w=1200&auto=format&fit=crop" alt="Christmas Tree Background" class="w-full h-full object-cover object-center scale-105 filter blur-sm transition-all duration-700 brightness-110 dark:brightness-[0.5]">
     </div>
     <div class="fixed inset-0 z-[-1] bg-gradient-to-b from-white/30 via-transparent to-red-900/20 dark:from-black/60 dark:via-black/40 dark:to-black/80 pointer-events-none transition-all duration-700"></div>
 
@@ -247,6 +248,7 @@
                 <button data-lang="fr" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Français"><img src="https://flagcdn.com/w40/fr.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="France Flag"></button>
                 <button data-lang="zh" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="中文"><img src="https://flagcdn.com/w40/cn.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="China Flag"></button>
                 <button data-lang="ja" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="日本語"><img src="https://flagcdn.com/w40/jp.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Japan Flag"></button>
+                <button data-lang="pl" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Polski"><img src="https://flagcdn.com/w40/pl.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Polish Flag"></button>
             </div>
             <button id="themeToggle" class="theme-toggle ml-4 p-3 rounded-full shadow-lg text-rose-600 dark:text-brand-gold fade-in-up" aria-label="Toggle Dark Mode" style="animation-delay: 100ms;">
                 <svg class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -505,7 +507,6 @@
                 parking_4: `⚠️ Insert GUEST PASS to enter/exit. DO NOT take a new ticket.`,
                 parking_5: "No refunds for direct garage payments.",
                 parking_6: "Return extra garage tickets to Front Desk.",
-                // ... (rest of translations - keeping keys same, just content updated if needed)
                 dining_title: "Dining & Drinks",
                 bfast_title: "Breakfast",
                 bfast_weekdays: "M-F:",
@@ -529,6 +530,13 @@
                 desc_chicken: "Roasted baby yukon potatoes, spinach, Buffalo Trace glaze.",
                 item_filet: "Filet & Lobster",
                 desc_filet: "Grilled asparagus, fingerling potatoes, spring cherries glaze.",
+                item_strip: "NY Strip",
+                desc_strip: "Boursin whipped potatoes, sauteed vegetables, horseradish demi glaze.",
+                menu_dessert: "Dessert",
+                item_cake: "Too Tall Carrot Cake",
+                item_pie: "Apple Pie",
+                item_cheesecake: "NY Cheesecake",
+                item_choc_cake: "Chocolate Cake",
                 menu_disclaimer: "*Contains raw/undercooked ingredients. Consuming may increase foodborne illness risk.",
                 amenities_title: "Pool & Gym",
                 pool_title: "Pool",
@@ -550,12 +558,92 @@
                 info_email_value: "phxes_fo@hilton.com",
                 footer_slogan: "For the Stay"
             },
-            // ... (I'm retaining the translation structure but omitting full repetition to save space, the JS logic below handles the updates correctly.)
             'es': { hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">Centro Norte</span>`, parking_title: "Estacionamiento ($32/Día)", parking_1: "Tenga a mano su número de placa al registrarse.", parking_2: `Reciba su etiqueta y <span class="font-bold text-brand dark:text-brand-light">PASE DE HUÉSPED</span> en recepción.`, parking_3: `Estacione donde <span class="font-bold text-brand-gold">NO ESTÉ RESERVADO</span>.`, parking_4: `⚠️ Inserte PASE DE HUÉSPED para entrar/salir. NO tome boleto nuevo.`, parking_5: "No hay reembolsos por pagos directos al garaje.", parking_6: "Devuelva boletos extra a la recepción.", dining_title: "Comida y Bebida", bfast_title: "Desayuno", bfast_weekdays: "L-V:", bfast_weekends: "S-D:", reception_title: "Recepción", reception_time: "Diario:", tavern_name: "Taberna Salt River", menu_starters: "Entradas", item_soup: "Sopa de Tortilla", desc_soup: "Pollo a la parrilla, tiras de tortilla y queso fresco.", item_flatbread: "Pan Plano", desc_flatbread: "Salchicha italiana ahumada, burrata derretida, mermelada de pimiento.", item_brussels: "Coles y Tocino", desc_brussels: "Tocino de manzano, glaseado balsámico, nuez confitada.", item_wings: "Alitas a la Parrilla", desc_wings: "Frotado seco SRT, búfalo picante, barbacoa miel o ajo.", menu_mainplate: "Fuertes", item_salmon: "Salmón de Alaska", desc_salmon: "Risotto de azafrán, espárragos con prosciutto, framboise.", item_chicken: "Pollo al Bourbon", desc_chicken: "Papas baby yukon, espinacas, glaseado Buffalo Trace.", item_filet: "Filete y Langosta", desc_filet: "Espárragos a la parrilla, papas alevines, glaseado de cerezas.", menu_disclaimer: "*Contiene ingredientes crudos. El consumo puede aumentar riesgo de enfermedad.", amenities_title: "Piscina y Gimnasio", pool_title: "Piscina", gym_title: "Gimnasio", amenities_disclaimer: "Supervisión requerida para menores de 16.", wifi_title: "Acceso Wi-Fi", wifi_2: `Si no carga, visite <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded transition-colors">cnn.com</code>`, wifi_5: `Soporte: (888)-830-5099`, info_title: "Información", info_checkout_label: "Salida", info_checkout_time: "12:00 PM", info_address_label: "Dirección", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "Teléfono", info_phone_value: "(602)-222-1111", info_text_label: "Texto", info_text_value: "(928)-857-4811", info_email_label: "Correo", info_email_value: "phxes_fo@hilton.com", footer_slogan: "Para la Estancia" },
             'de': { hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">Downtown Nord</span>`, parking_title: "Parken ($32/Tag)", parking_1: "Halten Sie Ihr Kennzeichen beim Check-in bereit.", parking_2: `Erhalten Sie Parkausweis und <span class="font-bold text-brand dark:text-brand-light">GÄSTEPASS</span> an der Rezeption.`, parking_3: `Parken Sie auf <span class="font-bold text-brand-gold">NICHT RESERVIERTEN</span> Plätzen.`, parking_4: `⚠️ GÄSTEPASS zum Ein-/Ausfahren nutzen. KEIN neues Ticket ziehen.`, parking_5: "Keine Rückerstattung für Direktzahlungen.", parking_6: "Zusätzliche Tickets an der Rezeption abgeben.", dining_title: "Essen & Trinken", bfast_title: "Frühstück", bfast_weekdays: "Mo-Fr:", bfast_weekends: "Sa-So:", reception_title: "Empfang", reception_time: "Täglich:", tavern_name: "Salt River Taverne", menu_starters: "Vorspeisen", item_soup: "Tortillasuppe", desc_soup: "Gegrilltes Hähnchen, Tortillastreifen und Queso Fresco.", item_flatbread: "Fladenbrot", desc_flatbread: "Geräucherte Wurst, geschmolzener Burrata, Paprikamarmelade.", item_brussels: "Rosenkohl & Speck", desc_brussels: "Apfelholzspeck, Balsamico, kandierte Walnuss.", item_wings: "Gegrillte Flügel", desc_wings: "SRT-Gewürz, scharfer Büffel, Honig-BBQ oder Knoblauch.", menu_mainplate: "Hauptgerichte", item_salmon: "Alaska-Lachs", desc_salmon: "Safranrisotto, Prosciutto-Spargel, Himbeere.", item_chicken: "Bourbon-Hähnchen", desc_chicken: "Geröstete Kartoffeln, Spinat, Buffalo-Trace-Glasur.", item_filet: "Filet & Hummer", desc_filet: "Gegrillter Spargel, Fingerling-Kartoffeln, Kirschglasur.", menu_disclaimer: "*Enthält rohe Zutaten. Verzehr kann Krankheitsrisiko erhöhen.", amenities_title: "Pool & Fitness", pool_title: "Pool", gym_title: "Fitness", amenities_disclaimer: "Aufsicht für unter 16-Jährige erforderlich.", wifi_title: "WLAN-Zugang", wifi_2: `Falls Seite nicht lädt, besuchen Sie <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded transition-colors">cnn.com</code>`, wifi_5: `Support: (888)-830-5099`, info_title: "Informationen", info_checkout_label: "Abreise", info_checkout_time: "12:00 Uhr", info_address_label: "Adresse", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "Telefon", info_phone_value: "(602)-222-1111", info_text_label: "SMS", info_text_value: "(928)-857-4811", info_email_label: "Email", info_email_value: "phxes_fo@hilton.com", footer_slogan: "Für den Aufenthalt" },
             'fr': { hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">Centre-ville Nord</span>`, parking_title: "Parking (32 $/Jour)", parking_1: "Préparez votre numéro de plaque à l'arrivée.", parking_2: `Recevez votre vignette et <span class="font-bold text-brand dark:text-brand-light">PASS INVITÉ</span> à la réception.`, parking_3: `Garez-vous sur les places <span class="font-bold text-brand-gold">NON RÉSERVÉES</span>.`, parking_4: `⚠️ Insérez le PASS INVITÉ pour entrer/sortir. NE prenez PAS de ticket.`, parking_5: "Pas de remboursement pour paiements directs.", parking_6: "Retournez les tickets supplémentaires à la réception.", dining_title: "Repas et Boissons", bfast_title: "Petit-déjeuner", bfast_weekdays: "L-V :", bfast_weekends: "S-D :", reception_title: "Réception", reception_time: "Tous les jours :", tavern_name: "Taverne Salt River", menu_starters: "Entrées", item_soup: "Soupe Tortilla", desc_soup: "Poulet grillé, lanières de tortilla et queso fresco.", item_flatbread: "Pain Plat", desc_flatbread: "Saucisse fumée, burrata fondue, confiture de poivrons.", item_brussels: "Choux & Bacon", desc_brussels: "Bacon, vinaigre balsamique, noix confites.", item_wings: "Ailes Grillées", desc_wings: "Épices SRT, buffalo piquant, barbecue miel ou ail.", menu_mainplate: "Plats", item_salmon: "Saumon d'Alaska", desc_salmon: "Risotto safran, asperges prosciutto, framboise.", item_chicken: "Poulet Bourbon", desc_chicken: "Pommes de terre rôties, épinards, glaçage Buffalo Trace.", item_filet: "Filet & Homard", desc_filet: "Asperges grillées, pommes de terre, glaçage cerises.", menu_disclaimer: "*Contient des ingrédients crus. Peut augmenter les risques sanitaires.", amenities_title: "Piscine et Sport", pool_title: "Piscine", gym_title: "Sport", amenities_disclaimer: "Supervision requise pour les -16 ans.", wifi_title: "Accès Wi-Fi", wifi_2: `Si la page ne charge pas, visitez <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded">cnn.com</code>`, wifi_5: `Support : (888)-830-5099`, info_title: "Informations", info_checkout_label: "Départ", info_checkout_time: "12:00", info_address_label: "Adresse", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "Tél", info_phone_value: "(602)-222-1111", info_text_label: "SMS", info_text_value: "(928)-857-4811", info_email_label: "Email", info_email_value: "phxes_fo@hilton.com", footer_slogan: "Pour le Séjour" },
             'zh': { hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">市中心北</span>`, parking_title: "停车（每日32美元）", parking_1: "入住时准备好车牌号。", parking_2: `在前台领取<span class="font-bold text-brand dark:text-brand-light">酒店客人通行证</span>。`, parking_3: `停在<span class="font-bold text-brand-gold">未预留</span>的车位。`, parking_4: `⚠️ 插入通行证进出。不要取新票。`, parking_5: "直接支付不予退款。", parking_6: "多余票据交还前台。", dining_title: "餐饮", bfast_title: "早餐", bfast_weekdays: "周一至周五：", bfast_weekends: "周末：", reception_title: "招待会", reception_time: "每日：", tavern_name: "盐河酒馆", menu_starters: "前菜", item_soup: "玉米饼汤", desc_soup: "烤鸡，玉米饼条，奶酪。", item_flatbread: "扁面包", desc_flatbread: "烟熏香肠，布拉塔奶酪，烤椒酱。", item_brussels: "抱子甘蓝", desc_brussels: "培根，香醋，核桃。", item_wings: "烤翅", desc_wings: "干擦香料，水牛城辣酱，蜂蜜烧烤或蒜味。", menu_mainplate: "主菜", item_salmon: "阿拉斯加鲑鱼", desc_salmon: "藏红花烩饭，芦笋，覆盆子。", item_chicken: "波旁鸡", desc_chicken: "烤土豆，菠菜，波旁釉。", item_filet: "菲力牛排", desc_filet: "烤芦笋，小土豆，樱桃釉。", menu_disclaimer: "*含生食成分。食用可能增加风险。", amenities_title: "泳池和健身", pool_title: "泳池", gym_title: "健身房", amenities_disclaimer: "16岁以下需成人陪同。", wifi_title: "Wi-Fi", wifi_2: `如未加载，访问 <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded">cnn.com</code>`, wifi_5: `支持：(888)-830-5099`, info_title: "信息", info_checkout_label: "退房", info_checkout_time: "12:00 PM", info_address_label: "地址", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "电话", info_phone_value: "(602)-222-1111", info_text_label: "短信", info_text_value: "(928)-857-4811", info_email_label: "邮箱", info_email_value: "phxes_fo@hilton.com", footer_slogan: "为您的住宿" },
-            'ja': { hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">ダウンタウン・ノース</span>`, parking_title: "駐車場（1日32ドル）", parking_1: "チェックイン時にナンバープレートをご用意ください。", parking_2: `フロントで<span class="font-bold text-brand dark:text-brand-light">ゲストパス</span>をお受け取りください。`, parking_3: `<span class="font-bold text-brand-gold">予約済み以外</span>の場所に駐車してください。`, parking_4: `⚠️ ゲストパスを挿入して入出庫。新券は取らないでください。`, parking_5: "直接払いの返金は不可。", parking_6: "余分な券はフロントへ。", dining_title: "お食事", bfast_title: "朝食", bfast_weekdays: "平日：", bfast_weekends: "週末：", reception_title: "レセプション", reception_time: "毎日：", tavern_name: "ソルトリバータバーン", menu_starters: "前菜", item_soup: "トルティーヤスープ", desc_soup: "グリルチキン、チーズ。", item_flatbread: "フラットブレッド", desc_flatbread: "ソーセージ、ブッラータ、ペッパージャム。", item_brussels: "芽キャベツ", desc_brussels: "ベーコン、バルサミコ、くるみ。", item_wings: "グリルウィング", desc_wings: "スパイス、バッファロー、BBQ、またはガーリック。", menu_mainplate: "メイン", item_salmon: "サーモン", desc_salmon: "リゾット、アスパラガス。", item_chicken: "バーボンチキン", desc_chicken: "ローストポテト、ほうれん草。", item_filet: "フィレ＆ロブスター", desc_filet: "アスパラガス、チェリーソース。", menu_disclaimer: "*生の食材を含みます。リスクをご了承ください。", amenities_title: "プール＆ジム", pool_title: "プール", gym_title: "ジム", amenities_disclaimer: "16歳未満は要監視。", wifi_title: "Wi-Fi", wifi_2: `開かない場合 <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded">cnn.com</code> へ`, wifi_5: `サポート：(888)-830-5099`, info_title: "情報", info_checkout_label: "チェックアウト", info_checkout_time: "12:00 PM", info_address_label: "住所", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "電話", info_phone_value: "(602)-222-1111", info_text_label: "SMS", info_text_value: "(928)-857-4811", info_email_label: "メール", info_email_value: "phxes_fo@hilton.com", footer_slogan: "ご滞在のために" }
+            'ja': { hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">ダウンタウン・ノース</span>`, parking_title: "駐車場（1日32ドル）", parking_1: "チェックイン時にナンバープレートをご用意ください。", parking_2: `フロントで<span class="font-bold text-brand dark:text-brand-light">ゲストパス</span>をお受け取りください。`, parking_3: `<span class="font-bold text-brand-gold">予約済み以外</span>の場所に駐車してください。`, parking_4: `⚠️ ゲストパスを挿入して入出庫。新券は取らないでください。`, parking_5: "直接払いの返金は不可。", parking_6: "余分な券はフロントへ。", dining_title: "お食事", bfast_title: "朝食", bfast_weekdays: "平日：", bfast_weekends: "週末：", reception_title: "レセプション", reception_time: "毎日：", tavern_name: "ソルトリバータバーン", menu_starters: "前菜", item_soup: "トルティーヤスープ", desc_soup: "グリルチキン、チーズ。", item_flatbread: "フラットブレッド", desc_flatbread: "ソーセージ、ブッラータ、ペッパージャム。", item_brussels: "芽キャベツ", desc_brussels: "ベーコン、バルサミコ、くるみ。", item_wings: "グリルウィング", desc_wings: "スパイス、バッファロー、BBQ、またはガーリック。", menu_mainplate: "メイン", item_salmon: "サーモン", desc_salmon: "リゾット、アスパラガス。", item_chicken: "バーボンチキン", desc_chicken: "ローストポテト、ほうれん草。", item_filet: "フィレ＆ロブスター", desc_filet: "アスパラガス、チェリーソース。", menu_disclaimer: "*生の食材を含みます。リスクをご了承ください。", amenities_title: "プール＆ジム", pool_title: "プール", gym_title: "ジム", amenities_disclaimer: "16歳未満は要監視。", wifi_title: "Wi-Fi", wifi_2: `開かない場合 <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded">cnn.com</code> へ`, wifi_5: `サポート：(888)-830-5099`, info_title: "情報", info_checkout_label: "チェックアウト", info_checkout_time: "12:00 PM", info_address_label: "住所", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "電話", info_phone_value: "(602)-222-1111", info_text_label: "SMS", info_text_value: "(928)-857-4811", info_email_label: "メール", info_email_value: "phxes_fo@hilton.com", footer_slogan: "ご滞在のために" },
+            'pl': { 
+                hotel_name: `Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">Śródmieście Północ</span>`, 
+                parking_title: "Parking ogólny (32 USD dziennie)", 
+                parking_1: "Przygotuj numer rejestracyjny podczas zameldowania.", 
+                parking_2: `Odbierz identyfikator parkingowy i <span class="font-bold text-brand dark:text-brand-light">KARTĘ GOŚCIA</span> w recepcji.`, 
+                parking_3: `Parkuj na dowolnym miejscu <span class="font-bold text-brand-gold">NIEZAREZERWOWANYM</span>.`, 
+                parking_4: `⚠️ Włóż KARTĘ GOŚCIA, aby wjechać/wyjechać. NIE pobieraj nowego biletu.`, 
+                parking_5: "Brak zwrotów za płatności bezpośrednio w garażu.", 
+                parking_6: "Zwróć dodatkowe bilety parkingowe do recepcji.", 
+                dining_title: "Jedzenie i Napoje", 
+                bfast_title: "Śniadanie", 
+                bfast_weekdays: "Pn-Pt:", 
+                bfast_weekends: "Sb-Nd:", 
+                reception_title: "Recepcja", 
+                reception_time: "Codziennie:", 
+                tavern_name: "Salt River Tavern", 
+                menu_starters: "Przystawki", 
+                item_soup: "Rustykalna Zupa Tortilla", 
+                desc_soup: "Grillowany kurczak z wolnego wybiegu, paski tortilli i queso fresco.", 
+                item_flatbread: "Podpłomyk", 
+                desc_flatbread: "Lokalna wędzona kiełbasa włoska, roztopiona burrata, dżem z pieczonej papryki.", 
+                item_brussels: "Brukselka i Boczek", 
+                desc_brussels: "Boczek wędzony drewnem jabłoni, glazura balsamiczna, kandyzowane orzechy włoskie, parmezan.", 
+                item_wings: "Grillowane Skrzydełka", 
+                desc_wings: "Sucha marynata SRT, ostry sos buffalo, miodowe BBQ mesquite lub czosnek korzenny.", 
+                menu_salads: "Sałatki", 
+                item_babybleu: "Sałatka Baby Bleu", 
+                desc_babybleu: "Młode liście sałaty, prażone pestki dyni, czerwone jabłka, ser pleśniowy, winegret balsamiczny.", 
+                item_spinach: "Szpinak i Orzech Włoski", 
+                desc_spinach: "Pomidorki koktajlowe z Arizony, pieczone orzechy włoskie, ser queso fresco, sos miodowo-musztardowy.", 
+                item_caesar: "Cezar S.R.T.", 
+                desc_caesar: "Czosnkowe grzanki ziołowe, wiórki parmezanu, sos Cezar.", 
+                item_cobb: "Sałatka Cobb z Arizony", 
+                desc_cobb: "Pieczona kukurydza, nopalitos z chilli i limonką, pomidory heirloom, boczek habanero, ser manchego.", 
+                menu_handheld: "Kanapki i Burgery", 
+                desc_handheld: "Podawane z frytkami lub świeżymi owocami.", 
+                item_club: "Klubowa z Grillowanym Indykiem", 
+                desc_club: "Boczek klonowy, indyk w pieprzu, sałata, pomidor, ser munster, chleb wieloziarnisty, aioli żurawinowe.", 
+                item_burger: "*Burger Steakhouse", 
+                desc_burger: "Certyfikowana wołowina angus, sałata masłowa, pomidor, smażona cebula, bułka brioche, ser do wyboru.", 
+                item_pastrami: "Reuben z Pastrami", 
+                desc_pastrami: "Ręcznie krojone pastrami, ser gouda chipotle, surówka colesław, sos 1000 wysp, chleb żytni marmurkowy.", 
+                item_blackbleu: "*Burger Black & Bleu", 
+                desc_blackbleu: "Wołowina angus w przyprawach z Sonory, roztopiony ser pleśniowy, pico de gallo, bułka brioche.", 
+                menu_mainplate: "Dania Główne", 
+                item_salmon: "Łosoś Alaski", 
+                desc_salmon: "Szafranowe risotto, szparagi w prosciutto, malina ancho.", 
+                item_chicken: "Kurczak Bourbon", 
+                desc_chicken: "Pieczone ziemniaczki yukon, szpinak, glazura Buffalo Trace.", 
+                item_porkchop: "Kotlet Schabowy", 
+                desc_porkchop: "Smażone bataty, młode marchewki, duszona boćwina.", 
+                item_filet: "Filet i Homar", 
+                desc_filet: "Grillowane szparagi, ziemniaki fingerling, glazura wiśniowa.", 
+                item_strip: "Stek NY Strip", 
+                desc_strip: "Ziemniaki ubijane z serem Boursin, warzywa sauté, demi-glace chrzanowy.", 
+                menu_dessert: "Desery", 
+                item_cake: "Wysokie Ciasto Marchewkowe", 
+                item_pie: "Szarlotka", 
+                item_cheesecake: "Sernik Nowojorski", 
+                item_choc_cake: "Ciasto Czekoladowe", 
+                menu_disclaimer: "*Zawiera surowe/niedogotowane składniki. Spożycie może zwiększyć ryzyko chorób przenoszonych drogą pokarmową.", 
+                amenities_title: "Basen i Siłownia", 
+                pool_title: "Basen", 
+                gym_title: "Siłownia", 
+                amenities_disclaimer: "Wymagany nadzór dla osób poniżej 16 roku życia.", 
+                wifi_title: "Dostęp do Wi-Fi", 
+                wifi_2: `Jeśli strona się nie ładuje, odwiedź <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded transition-colors">cnn.com</code>`, 
+                wifi_5: `Wsparcie: (888)-830-5099`, 
+                info_title: "Informacje o Hotelu", 
+                info_checkout_label: "Wymeldowanie", 
+                info_checkout_time: "12:00", 
+                info_address_label: "Adres", 
+                info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", 
+                info_phone_label: "Telefon", 
+                info_phone_value: "(602)-222-1111", 
+                info_text_label: "SMS", 
+                info_text_value: "(928)-857-4811", 
+                info_email_label: "Email", 
+                info_email_value: "phxes_fo@hilton.com", 
+                footer_slogan: "Dla Twojego Pobytu" 
+            }
         };
 
         document.addEventListener('DOMContentLoaded', function () {
