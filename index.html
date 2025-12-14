@@ -259,6 +259,7 @@
             <h1 class="font-extrabold text-4xl sm:text-6xl text-slate-900 dark:text-white tracking-tight drop-shadow-lg transition-colors duration-300" data-key="hotel_name">
                 Embassy Suites <br/> <span class="animate-holiday-text font-holiday text-5xl sm:text-7xl pt-2 block">Downtown North</span>
             </h1>
+            <div id="festive-clock" class="text-center mt-2 text-2xl font-medium text-brand-gold drop-shadow-md font-holiday"></div>
             <div class="h-1.5 w-32 bg-brand-gold rounded-full mx-auto mt-6 animate-pulse-bar transition-all duration-300"></div>
         </header>
 
@@ -777,7 +778,10 @@
             menuBtn.addEventListener('click', () => switchTab('menu'));
 
             // Translation Logic
+            let currentLang = 'en';
+
             function translatePage(language) {
+                currentLang = language;
                 const langData = { ...translations['en'], ...translations[language] };
 
                 document.querySelectorAll('[data-key]').forEach(element => {
@@ -786,6 +790,7 @@
                         element.innerHTML = langData[key];
                     }
                 });
+                updateClock(); // Force update on language change
             }
             
             const languageSelector = document.getElementById('languageSelector');
@@ -861,6 +866,32 @@
                     htmlElement.classList.add('dark');
                 }
             }
+
+            // Clock Logic
+            function updateClock() {
+                const now = new Date();
+                
+                // Separate options to avoid the automatic "at" connector
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const timeOptions = { hour: 'numeric', minute: '2-digit', second: '2-digit' };
+
+                // Use the currently selected language for date formatting, or fallback to 'en-US'
+                const localeMap = {
+                    'en': 'en-US', 'es': 'es-ES', 'de': 'de-DE', 
+                    'fr': 'fr-FR', 'zh': 'zh-CN', 'ja': 'ja-JP', 'pl': 'pl-PL'
+                };
+                const locale = localeMap[currentLang] || 'en-US';
+                
+                const dateString = now.toLocaleDateString(locale, dateOptions);
+                const timeString = now.toLocaleTimeString(locale, timeOptions);
+                
+                const clockElement = document.getElementById('festive-clock');
+                if (clockElement) {
+                    clockElement.innerHTML = `${dateString} ${timeString} 🎄`;
+                }
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
         });
     </script>
 </body>
