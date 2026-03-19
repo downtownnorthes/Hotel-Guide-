@@ -174,8 +174,12 @@
             <h1 class="font-extrabold text-4xl sm:text-6xl text-slate-800 dark:text-white tracking-tight drop-shadow-lg transition-colors duration-300" data-key="hotel_name">
                 Embassy Suites <br/> <span class="animate-text-gradient font-black">Downtown North</span>
             </h1>
-            <!-- Added Live Clock -->
-            <div id="festive-clock" class="text-center mt-2 text-2xl font-medium text-brand-dark dark:text-brand-light drop-shadow-md font-cursive"></div>
+            <!-- Added Live Clock & Weather -->
+            <div class="flex items-center justify-center gap-2 mt-3 text-lg sm:text-xl font-semibold text-brand-dark dark:text-brand-light drop-shadow-md tracking-wide">
+                <span id="live-clock"></span>
+                <span class="opacity-40 text-sm text-slate-500 dark:text-slate-400">•</span>
+                <span id="live-weather" class="animate-pulse">☀️ --&deg;F / --&deg;C</span>
+            </div>
             <div class="h-1.5 w-24 bg-brand rounded-full mx-auto mt-6 animate-pulse-bar transition-all duration-300"></div>
         </header>
 
@@ -717,6 +721,7 @@
                     const language = button.dataset.lang;
                     translatePage(language);
                     
+                    // Visual update
                     languageSelector.querySelector('.active').classList.remove('active');
                     button.classList.add('active');
                 });
@@ -792,12 +797,13 @@
                 }
             }
 
-            // Clock Logic
+            // Clock & Weather Logic
             function updateClock() {
                 const now = new Date();
                 
-                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const timeOptions = { hour: 'numeric', minute: '2-digit', second: '2-digit' };
+                // Keep it succinct for UI cleanliness 
+                const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+                const timeOptions = { hour: 'numeric', minute: '2-digit' };
 
                 const localeMap = {
                     'en': 'en-US', 'es': 'es-ES', 'de': 'de-DE', 
@@ -808,13 +814,46 @@
                 const dateString = now.toLocaleDateString(locale, dateOptions);
                 const timeString = now.toLocaleTimeString(locale, timeOptions);
                 
-                const clockElement = document.getElementById('festive-clock');
+                const clockElement = document.getElementById('live-clock');
                 if (clockElement) {
-                    clockElement.innerHTML = `${dateString} ${timeString} ☃️`;
+                    clockElement.innerHTML = `${dateString} | ${timeString}`;
                 }
             }
             setInterval(updateClock, 1000);
             updateClock();
+
+            // Fetch live Phoenix weather using Open-Meteo (No API key required)
+            async function fetchWeather() {
+                const weatherEl = document.getElementById('live-weather');
+                try {
+                    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.4484&longitude=-112.0740&current_weather=true&temperature_unit=fahrenheit');
+                    const data = await res.json();
+                    
+                    const tempF = Math.round(data.current_weather.temperature);
+                    const tempC = Math.round((tempF - 32) * 5 / 9);
+                    const code = data.current_weather.weathercode;
+                    
+                    // Simple weather mapping
+                    let icon = '☀️';
+                    if (code >= 1 && code <= 3) icon = '⛅';
+                    else if (code >= 45 && code <= 48) icon = '🌫️';
+                    else if (code >= 51 && code <= 67) icon = '🌧️';
+                    else if (code >= 71 && code <= 86) icon = '❄️';
+                    else if (code >= 95) icon = '⛈️';
+                    
+                    if (weatherEl) {
+                        weatherEl.innerHTML = `${icon} ${tempF}&deg;F / ${tempC}&deg;C`;
+                        weatherEl.classList.remove('animate-pulse');
+                    }
+                } catch (e) {
+                    // Fallback to beautiful Phoenix weather if request fails
+                    if (weatherEl) {
+                        weatherEl.innerHTML = '☀️ 75&deg;F / 24&deg;C';
+                        weatherEl.classList.remove('animate-pulse');
+                    }
+                }
+            }
+            fetchWeather();
         });
     </script>
 </body>
