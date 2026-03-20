@@ -139,13 +139,83 @@
             animation: pulse-bar-glow 2.5s ease-in-out infinite;
         }
 
-        .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s;
+        }
+        #splash-screen.hidden-splash {
+            opacity: 0;
+            transform: scale(1.05);
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .splash-welcome {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: splashFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+        }
+        .splash-text {
+            opacity: 0;
+            transform: scale(0.95);
+            animation: splashPopIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
+        }
+        .splash-line {
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #10B981, transparent);
+            border-radius: 9999px;
+            margin-top: 1.5rem;
+            animation: splashLineExpand 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.2s;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+        }
+        .splash-slogan {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: splashFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.6s;
+        }
+        
+        @keyframes splashFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes splashPopIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes splashLineExpand {
+            to { width: 14rem; }
+        }
+
+        /* Updated Entrance Animations */
+        .fade-in-up { opacity: 0; transform: translateY(20px); }
+        .app-loaded .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .stagger-1 { animation-delay: 100ms; } .stagger-2 { animation-delay: 200ms; } .stagger-3 { animation-delay: 300ms; }
+        .app-loaded .stagger-1 { animation-delay: 100ms; } 
+        .app-loaded .stagger-2 { animation-delay: 200ms; } 
+        .app-loaded .stagger-3 { animation-delay: 300ms; }
     </style>
 </head>
 <body class="antialiased text-slate-800 dark:text-slate-100 min-h-screen flex flex-col items-center bg-slate-100 dark:bg-gray-900 transition-colors duration-500">
     
+    <!-- Splash Screen Reveal -->
+    <div id="splash-screen" class="bg-gradient-to-br from-slate-900 via-slate-800 to-black">
+        <div class="flex flex-col items-center justify-center text-center px-4">
+            <span class="splash-welcome text-brand-light font-bold tracking-[0.3em] uppercase text-xs sm:text-sm mb-4">Welcome To</span>
+            <h1 class="font-extrabold text-5xl sm:text-7xl text-white tracking-tight splash-text drop-shadow-2xl">
+                Embassy Suites
+            </h1>
+            <div class="splash-line"></div>
+            <h2 class="font-cursive text-3xl sm:text-5xl text-slate-300 drop-shadow-md splash-slogan mt-6" data-key="footer_slogan">
+                For the Stay
+            </h2>
+        </div>
+    </div>
+
     <div class="fixed inset-0 z-[-2]">
         <img src="https://i.imgur.com/HvlIXI0.jpeg" alt="Blurry Hotel Lobby Background" class="w-full h-full object-cover object-center scale-105 filter blur-sm transition-all duration-700 brightness-100 dark:brightness-[0.6]">
     </div>
@@ -153,7 +223,6 @@
 
     <div class="w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8 flex-grow flex flex-col relative">
         
-        <!-- Controls -->
         <div class="flex justify-center items-center mb-6 sticky top-4 z-50 relative">
             <div id="languageSelector" class="bg-white/70 dark:bg-slate-800/80 backdrop-blur-md border border-white/40 dark:border-white/10 rounded-full px-6 py-3 flex gap-4 sm:gap-6 shadow-xl fade-in-up transition-colors duration-300">
                 <button data-lang="en" class="lang-btn active transition-transform hover:scale-110 opacity-100" aria-label="English"><img src="https://flagcdn.com/w40/us.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="USA Flag"></button>
@@ -174,7 +243,6 @@
             <h1 class="font-extrabold text-4xl sm:text-6xl text-slate-800 dark:text-white tracking-tight drop-shadow-lg transition-colors duration-300" data-key="hotel_name">
                 Embassy Suites <br/> <span class="animate-text-gradient font-black">Downtown North</span>
             </h1>
-            <!-- Added Live Clock & Weather -->
             <div class="flex items-center justify-center gap-2 mt-3 text-lg sm:text-xl font-semibold text-brand-dark dark:text-brand-light drop-shadow-md tracking-wide">
                 <span id="live-clock"></span>
                 <span class="opacity-40 text-sm text-slate-500 dark:text-slate-400">•</span>
@@ -183,7 +251,6 @@
             <div class="h-1.5 w-24 bg-brand rounded-full mx-auto mt-6 animate-pulse-bar transition-all duration-300"></div>
         </header>
 
-        <!-- Added Tab Navigation -->
         <div class="flex justify-center mb-8 fade-in-up stagger-2 relative z-40">
             <div class="bg-white/70 dark:bg-slate-800/80 p-1.5 rounded-full shadow-xl flex gap-1 border border-white/20">
                 <button id="btn-guide" class="px-6 py-2 rounded-full font-bold text-sm sm:text-base transition-all duration-300 bg-brand text-white shadow-md" data-key="tab_guide">
@@ -197,10 +264,8 @@
 
         <div class="glass-panel rounded-3xl p-3 shadow-2xl fade-in-up stagger-2">
             
-            <!-- VIEW 1: GUEST GUIDE (Accordions) -->
             <div id="view-guide" class="flex flex-col space-y-1">
 
-                <!-- Parking Card -->
                 <div class="menu-card group">
                     <button aria-expanded="false" aria-controls="content-parking" class="accordion-trigger w-full p-5 flex items-center justify-between text-left focus:outline-none">
                         <div class="flex items-center gap-4">
@@ -227,7 +292,6 @@
                     </div>
                 </div>
 
-                <!-- Amenities Card -->
                 <div class="menu-card group">
                     <button aria-expanded="false" aria-controls="content-amenities" class="accordion-trigger w-full p-5 flex items-center justify-between text-left focus:outline-none">
                         <div class="flex items-center gap-4">
@@ -261,7 +325,6 @@
                     </div>
                 </div>
 
-                <!-- Wi-Fi Card -->
                 <div class="menu-card group">
                     <button aria-expanded="false" aria-controls="content-wifi" class="accordion-trigger w-full p-5 flex items-center justify-between text-left focus:outline-none">
                         <div class="flex items-center gap-4">
@@ -293,7 +356,6 @@
                     </div>
                 </div>
 
-                <!-- Info Card -->
                 <div class="menu-card group">
                     <button aria-expanded="false" aria-controls="content-info" class="accordion-trigger w-full p-5 flex items-center justify-between text-left focus:outline-none">
                         <div class="flex items-center gap-4">
@@ -334,21 +396,18 @@
 
             </div>
 
-            <!-- VIEW 2: DINING MENU (Full Layout) -->
             <div id="view-menu" class="hidden">
                  <div class="flex items-center justify-between mb-6 border-b-2 border-brand/30 pb-4">
                     <div>
                         <h3 class="font-cursive text-4xl text-slate-800 dark:text-white transition-colors" data-key="tavern_name">Salt River Tavern</h3>
                         <p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">Lounge Menu • 5PM - 10PM</p>
                     </div>
-                    <!-- Info Badges -->
                     <div class="hidden sm:flex flex-col items-end gap-1">
                         <span class="bg-brand/10 dark:bg-brand/20 text-brand-dark dark:text-brand-light text-xs font-bold px-2 py-1 rounded border border-brand/20">Ext. 2107</span>
                         <span class="text-[10px] text-slate-400 dark:text-slate-500">$3 Delivery</span>
                     </div>
                 </div>
 
-                <!-- Info Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <div class="bg-white/50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors">
                         <h3 class="font-bold text-brand-dark dark:text-brand-light uppercase text-xs tracking-wider mb-2" data-key="bfast_title">Breakfast</h3>
@@ -361,12 +420,9 @@
                     </div>
                 </div>
 
-                <!-- Menu Content -->
                 <div class="space-y-8">
 
-                    <!-- DRINKS SECTION (Re-integrated from your previous request) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-200 dark:border-slate-700">
-                        <!-- Beer & Cocktails -->
                         <div class="space-y-6">
                             <div>
                                 <h4 class="flex items-center gap-2 text-sm font-bold text-brand-dark dark:text-brand-light uppercase tracking-widest mb-3" data-key="menu_beer">
@@ -393,7 +449,6 @@
                             </div>
                         </div>
 
-                        <!-- Wine -->
                         <div class="space-y-6">
                             <div>
                                 <h4 class="flex items-center gap-2 text-sm font-bold text-brand-dark dark:text-brand-light uppercase tracking-widest mb-3" data-key="menu_white_wine">
@@ -422,7 +477,6 @@
                         </div>
                     </div>
                     
-                    <!-- Starters -->
                     <div>
                         <h4 class="flex items-center gap-2 text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 pb-1 border-b border-slate-200 dark:border-slate-700" data-key="menu_starters">
                             Starters
@@ -447,7 +501,6 @@
                         </div>
                     </div>
 
-                    <!-- Salads -->
                     <div>
                         <h4 class="flex items-center gap-2 text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 pb-1 border-b border-slate-200 dark:border-slate-700" data-key="menu_salads">
                              Salads
@@ -472,7 +525,6 @@
                         </div>
                     </div>
 
-                    <!-- Handheld -->
                     <div>
                         <h4 class="flex items-center gap-2 text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 pb-1 border-b border-slate-200 dark:border-slate-700" data-key="menu_handheld">
                              Handheld
@@ -497,7 +549,6 @@
                         </div>
                     </div>
 
-                    <!-- Mains -->
                     <div>
                         <h4 class="flex items-center gap-2 text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 pb-1 border-b border-slate-200 dark:border-slate-700" data-key="menu_mainplate">
                              Mains
@@ -526,7 +577,6 @@
                         </div>
                     </div>
 
-                    <!-- Dessert -->
                     <div>
                          <h4 class="flex items-center gap-2 text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 pb-1 border-b border-slate-200 dark:border-slate-700" data-key="menu_dessert">
                              Dessert
@@ -728,7 +778,7 @@
             }
 
             // Accordion Logic
-            const accordion = document.getElementById('view-guide'); // Updated to use the view-guide container
+            const accordion = document.getElementById('view-guide'); 
             if (accordion) {
                 accordion.addEventListener('click', function(e) {
                     const button = e.target.closest('.accordion-trigger');
@@ -801,7 +851,6 @@
             function updateClock() {
                 const now = new Date();
                 
-                // Keep it succinct for UI cleanliness 
                 const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
                 const timeOptions = { hour: 'numeric', minute: '2-digit' };
 
@@ -854,6 +903,15 @@
                 }
             }
             fetchWeather();
+
+            // Splash Screen Removal Logic
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if(splash) splash.classList.add('hidden-splash');
+                
+                // Trigger the staggered fade-in animations for the main content
+                document.body.classList.add('app-loaded');
+            }, 3200); // Extended to 3.2s to allow the elaborate sequence to breathe
         });
     </script>
 </body>
