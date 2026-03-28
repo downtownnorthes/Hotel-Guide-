@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Guest Information</title>
     <meta name="description" content="Guest information, dining, amenities, and Wi-Fi access for Embassy Suites Downtown North.">
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- PERFORMANCE: Preload heavy background image for faster LCP -->
+    <link rel="preload" href="https://i.imgur.com/HvlIXI0.jpeg" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- PERFORMANCE: Tailwind script blocks parser, but needed for CDN usage. -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -33,6 +38,7 @@
         ::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.5); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.8); }
 
+        /* PERFORMANCE: Added will-change to push heavily styled glass elements to GPU */
         .glass-panel {
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(20px);
@@ -40,6 +46,7 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            will-change: background-color, border-color;
         }
         .dark .glass-panel {
             background: rgba(255, 255, 255, 0.15);
@@ -53,7 +60,8 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 0.75rem; 
             overflow: hidden; 
-            transition: all 0.2s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+            will-change: transform;
         }
         .dark .menu-card {
             background-color: rgba(30, 41, 59, 0.85); 
@@ -72,13 +80,13 @@
         .accordion-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .accordion-inner {
             min-height: 0;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
             padding: 0 1.5rem; 
             background-color: rgba(255, 255, 255, 0.5);
             border-top: 1px solid rgba(0,0,0,0.05);
@@ -93,14 +101,14 @@
         .menu-card.active { background-color: rgba(255, 255, 255, 0.95); }
         .dark .menu-card.active { background-color: rgba(30, 41, 59, 0.95); }
 
-        .icon { transition: transform 0.3s ease; }
+        .icon { transition: transform 0.3s ease; will-change: transform; }
         .menu-card.active .icon { transform: rotate(180deg); }
 
         .theme-toggle {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
         .dark .theme-toggle {
             background: rgba(0, 0, 0, 0.3);
@@ -126,7 +134,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: gradient-flow 3s ease infinite;
+            animation: gradient-flow 4s ease infinite; /* Slowed down slightly to save CPU */
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
@@ -136,10 +144,11 @@
         }
         
         .animate-pulse-bar {
-            animation: pulse-bar-glow 2.5s ease-in-out infinite;
+            animation: pulse-bar-glow 3s ease-in-out infinite;
+            will-change: transform, box-shadow;
         }
 
-        /* Splash Screen Styles */
+        /* Splash Screen Styles (Timings restored for cinematic effect) */
         #splash-screen {
             position: fixed;
             inset: 0;
@@ -149,6 +158,7 @@
             align-items: center;
             justify-content: center;
             transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s;
+            will-change: opacity, transform;
         }
         #splash-screen.hidden-splash {
             opacity: 0;
@@ -156,6 +166,7 @@
             visibility: hidden;
             pointer-events: none;
         }
+        
         .splash-welcome {
             opacity: 0;
             transform: translateY(-20px);
@@ -191,17 +202,16 @@
             to { width: 14rem; }
         }
 
-        /* Updated Entrance Animations */
-        .fade-in-up { opacity: 0; transform: translateY(20px); }
-        .app-loaded .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .fade-in-up { opacity: 0; transform: translateY(20px); will-change: opacity, transform; }
+        .app-loaded .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .app-loaded .stagger-1 { animation-delay: 100ms; } 
-        .app-loaded .stagger-2 { animation-delay: 200ms; } 
-        .app-loaded .stagger-3 { animation-delay: 300ms; }
+        .app-loaded .stagger-1 { animation-delay: 50ms; } 
+        .app-loaded .stagger-2 { animation-delay: 100ms; } 
+        .app-loaded .stagger-3 { animation-delay: 150ms; }
 
-        /* Swivel View Animation */
         .view-section {
             animation: swivelIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: opacity, transform;
         }
         @keyframes swivelIn {
             from { opacity: 0; transform: translateX(15px); }
@@ -225,8 +235,9 @@
         </div>
     </div>
 
+    <!-- PERFORMANCE: Added decoding="async" to large background image to prevent main-thread locking -->
     <div class="fixed inset-0 z-[-2]">
-        <img src="https://i.imgur.com/HvlIXI0.jpeg" alt="Blurry Hotel Lobby Background" class="w-full h-full object-cover object-center scale-105 filter blur-sm transition-all duration-700 brightness-100 dark:brightness-[0.6]">
+        <img src="https://i.imgur.com/HvlIXI0.jpeg" alt="Blurry Hotel Lobby Background" decoding="async" class="w-full h-full object-cover object-center scale-105 filter blur-sm transition-all duration-700 brightness-100 dark:brightness-[0.6]">
     </div>
     <div class="fixed inset-0 z-[-1] bg-gradient-to-b from-white/20 via-slate-900/20 to-slate-900/60 dark:from-black/50 dark:via-black/30 dark:to-black/70 pointer-events-none transition-all duration-700"></div>
 
@@ -235,15 +246,15 @@
         <!-- Controls -->
         <div class="flex justify-center items-center mb-6 sticky top-4 z-50 relative">
             <div id="languageSelector" class="bg-white/70 dark:bg-slate-800/80 backdrop-blur-md border border-white/40 dark:border-white/10 rounded-full px-6 py-3 flex gap-4 sm:gap-6 shadow-xl fade-in-up transition-colors duration-300">
-                <button data-lang="en" class="lang-btn active transition-transform hover:scale-110 opacity-100" aria-label="English"><img src="https://flagcdn.com/w40/us.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="USA Flag"></button>
-                <button data-lang="es" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Español"><img src="https://flagcdn.com/w40/es.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Spain Flag"></button>
-                <button data-lang="de" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Deutsch"><img src="https://flagcdn.com/w40/de.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Germany Flag"></button>
-                <button data-lang="fr" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Français"><img src="https://flagcdn.com/w40/fr.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="France Flag"></button>
-                <button data-lang="zh" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="中文"><img src="https://flagcdn.com/w40/cn.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="China Flag"></button>
-                <button data-lang="ja" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="日本語"><img src="https://flagcdn.com/w40/jp.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Japan Flag"></button>
-                <button data-lang="pl" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Polski"><img src="https://flagcdn.com/w40/pl.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Polish Flag"></button>
+                <button data-lang="en" class="lang-btn active transition-transform hover:scale-110 opacity-100" aria-label="English"><img src="https://flagcdn.com/w40/us.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="USA Flag" decoding="async" loading="lazy"></button>
+                <button data-lang="es" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Español"><img src="https://flagcdn.com/w40/es.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Spain Flag" decoding="async" loading="lazy"></button>
+                <button data-lang="de" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Deutsch"><img src="https://flagcdn.com/w40/de.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Germany Flag" decoding="async" loading="lazy"></button>
+                <button data-lang="fr" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Français"><img src="https://flagcdn.com/w40/fr.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="France Flag" decoding="async" loading="lazy"></button>
+                <button data-lang="zh" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="中文"><img src="https://flagcdn.com/w40/cn.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="China Flag" decoding="async" loading="lazy"></button>
+                <button data-lang="ja" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="日本語"><img src="https://flagcdn.com/w40/jp.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Japan Flag" decoding="async" loading="lazy"></button>
+                <button data-lang="pl" class="lang-btn transition-transform hover:scale-110 opacity-60 hover:opacity-100" aria-label="Polski"><img src="https://flagcdn.com/w40/pl.png" class="w-6 h-6 rounded-full object-cover shadow-sm" alt="Polish Flag" decoding="async" loading="lazy"></button>
             </div>
-            <button id="themeToggle" class="theme-toggle ml-4 p-3 rounded-full shadow-lg text-slate-700 dark:text-yellow-300 fade-in-up" aria-label="Toggle Dark Mode" style="animation-delay: 100ms;">
+            <button id="themeToggle" class="theme-toggle ml-4 p-3 rounded-full shadow-lg text-slate-700 dark:text-yellow-300 fade-in-up" aria-label="Toggle Dark Mode" style="animation-delay: 50ms;">
                 <svg class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 <svg class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
             </button>
@@ -261,7 +272,7 @@
             <div class="h-1.5 w-24 bg-brand rounded-full mx-auto mt-6 animate-pulse-bar transition-all duration-300"></div>
         </header>
 
-        <!-- Added 3-Way Tab Navigation -->
+        <!-- 3-Way Tab Navigation -->
         <div class="flex justify-center mb-8 fade-in-up stagger-2 relative z-40">
             <div class="bg-white/70 dark:bg-slate-800/80 p-1.5 rounded-full shadow-xl flex gap-1 border border-white/20 overflow-x-auto max-w-full no-scrollbar">
                 <button id="btn-guide" class="px-4 sm:px-6 py-2 whitespace-nowrap rounded-full font-bold text-sm sm:text-base transition-all duration-300 bg-brand text-white shadow-md" data-key="tab_guide">
@@ -415,7 +426,7 @@
             </div>
 
             <!-- VIEW 2: DINING MENU -->
-            <div id="view-menu" class="hidden view-section">
+            <div id="view-menu" class="hidden">
                  <div class="flex items-center justify-between mb-6 border-b-2 border-brand/30 pb-4">
                     <div>
                         <h3 class="font-cursive text-4xl text-slate-800 dark:text-white transition-colors" data-key="tavern_name">Salt River Tavern</h3>
@@ -613,8 +624,8 @@
                 </div>
             </div>
 
-            <!-- VIEW 3: LOCAL DIRECTORY (Swivel View) -->
-            <div id="view-directory" class="hidden view-section flex flex-col space-y-1">
+            <!-- VIEW 3: LOCAL DIRECTORY -->
+            <div id="view-directory" class="hidden flex flex-col space-y-1">
                 
                 <!-- Quick Bites -->
                 <div class="menu-card group">
@@ -1114,7 +1125,7 @@
                 dir_item_encanto_desc: "The lagoon's swan pedal boats are a classic local activity; they offer a unique perspective on the midtown high-rises from the water."
             },
             'es': { 
-                tab_guide: "Guía de Huéspedes", tab_menu: "Menú", tab_directory: "Guía Local", hotel_name: `Embassy Suites <br/> <span class="animate-text-gradient font-black">Centro Norte</span>`, parking_title: "Estacionamiento ($32/Día)", parking_1: "Tenga a mano su número de placa al registrarse.", parking_2: `Reciba su etiqueta y <span class="font-bold text-brand-dark dark:text-brand-light">PASE DE HUÉSPED</span> en recepción.`, parking_3: `Estacione donde <span class="font-bold text-rose-500 dark:text-rose-400">NO ESTÉ RESERVADO</span>.`, parking_4: `⚠️ Inserte PASE DE HUÉSPED para entrar/salir. NO tome boleto nuevo.`, parking_5: "No hay reembolsos por pagos directos al garaje.", parking_6: "Devuelva boletos extra a la recepción.", dining_title: "Comida y Bebida", bfast_title: "Desayuno", bfast_weekdays: "L-V:", bfast_weekends: "S-D:", reception_title: "Recepción", reception_time: "Diario:", tavern_name: "Taberna Salt River", menu_beer: "Cerveza de Barril", menu_white_wine: "Vino Blanco", menu_red_wine: "Vino Tinto", menu_cocktails: "Cócteles de Especialidad ($15)", menu_starters: "Entradas", item_soup: "Sopa de Tortilla", desc_soup: "Pollo a la parrilla, tiras de tortilla y queso fresco.", item_flatbread: "Pan Plano", desc_flatbread: "Salchicha italiana ahumada, burrata derretida, mermelada de pimiento.", item_brussels: "Coles y Tocino", desc_brussels: "Tocino de manzano, glaseado balsámico, nuez confitada.", item_wings: "Alitas a la Parrilla", desc_wings: "Frotado seco SRT, búfalo picante, barbacoa miel o ajo.", menu_mainplate: "Fuertes", item_salmon: "Salmón de Alaska", desc_salmon: "Risotto de azafrán, espárragos con prosciutto, framboise.", item_chicken: "Pollo al Bourbon", desc_chicken: "Papas baby yukon, espinacas, glaseado Buffalo Trace.", item_filet: "Filete y Langosta", desc_filet: "Espárragos a la parrilla, papas alevines, glaseado de cerezas.", menu_disclaimer: "*Contiene ingredientes crudos. El consumo puede aumentar riesgo de enfermedad.", amenities_title: "Piscina y Gimnasio", pool_title: "Piscina", gym_title: "Gimnasio", amenities_disclaimer: "Supervisión requerida para menores de 16.", wifi_title: "Acceso Wi-Fi", wifi_2: `Si no carga, visite <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded transition-colors">cnn.com</code>`, wifi_5: `Soporte: (888)-830-5099`, info_title: "Información", info_checkout_label: "Salida", info_checkout_time: "12:00 PM", info_address_label: "Dirección", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "Teléfono", info_phone_value: "(602)-222-1111", info_text_label: "Texto", info_text_value: "(928)-857-4811", info_email_label: "Correo", info_email_value: "phxes_fo@hilton.com", footer_slogan: "Para la Estancia", menu_salads: "Ensaladas", item_babybleu: "Ensalada Baby Bleu", desc_babybleu: "Verduras tiernas, pepitas asadas, manzana roja, queso azul.", item_spinach: "Espinaca y Nuez", desc_spinach: "Tomates cherry, nueces confitadas, queso fresco.", item_caesar: "César S.R.T.", desc_caesar: "Crutones al ajo, parmesano reggiano.", item_cobb: "Cobb de Arizona", desc_cobb: "Maíz asado, nopalitos, tomate, tocino habanero.", menu_handheld: "Sándwiches", desc_handheld: "Con papas fritas o fruta.", item_club: "Club de Pavo", desc_club: "Tocino, pavo, queso munster, alioli de arándano.", item_burger: "Hamburguesa Steakhouse", desc_burger: "Carne angus, lechuga, tomate, cebolla frita.", item_pastrami: "Reuben de Pastrami", desc_pastrami: "Pastrami, queso gouda chipotle, ensalada de col.", item_blackbleu: "Black & Bleu", desc_blackbleu: "Carne angus especiada, queso azul, pico de gallo.", menu_dessert: "Postre", item_cake: "Pastel de Zanahoria", item_pie: "Pastel de Manzana", item_cheesecake: "Cheesecake NY", item_choc_cake: "Pastel de Chocolate", dir_cat_quick: "Comida Rápida", dir_cat_dining: "Restaurantes", dir_cat_coffee: "Café y Mañanas", dir_cat_essentials: "Esenciales y Urgencias", dir_cat_transit: "Transporte", dir_cat_attractions: "Atracciones",
+                tab_guide: "Guía de Huéspedes", tab_menu: "Menú", tab_directory: "Guía Local", hotel_name: `Embassy Suites <br/> <span class="animate-text-gradient font-black">Centro Norte</span>`, parking_title: "Estacionamiento ($32/Día)", parking_1: "Tenga a mano su número de placa al registrarse.", parking_2: `Reciba su etiqueta y <span class="font-bold text-brand-dark dark:text-brand-light">PASE DE HUÉSPED</span> en recepción.`, parking_3: `Estacione donde <span class="font-bold text-rose-500 dark:text-rose-400">NO ESTÉ RESERVADO</span>.`, parking_4: `⚠️ Inserte PASE DE HUÉSPED para entrar/salir. NO tome boleto nuevo.`, parking_5: "No hay reembolsos por pagos directos al garaje.", parking_6: "Devuelva boletos extra a la recepción.", dining_title: "Comida y Bebida", bfast_title: "Desayuno", bfast_weekdays: "L-V:", bfast_weekends: "S-D:", reception_title: "Recepción", reception_time: "Diario:", tavern_name: "Taberna Salt River", menu_beer: "Cerveza de Barril", menu_white_wine: "Vino Blanco", menu_red_wine: "Vino Tinto", menu_cocktails: "Cócteles de Especialidad ($15)", menu_starters: "Entradas", item_soup: "Sopa de Tortilla", desc_soup: "Pollo a la parrilla, tiras de tortilla y queso fresco.", item_flatbread: "Pan Plano", desc_flatbread: "Salchicha italiana ahumada, burrata derretida, mermelada de pimiento.", item_brussels: "Coles y Tocino", desc_brussels: "Tocino de manzano, glaseado balsámico, nuez confitada.", item_wings: "Alitas a la Parrilla", desc_wings: "Frotado seco SRT, búfalo picante, barbacoa miel o ajo.", menu_mainplate: "Fuertes", item_salmon: "Salmón de Alaska", desc_salmon: "Risotto de azafrán, espárragos con prosciutto, framboise.", item_chicken: "Pollo al Bourbon", desc_chicken: "Papas baby yukon, espinacas, glaseado Buffalo Trace.", item_filet: "Filet y Langosta", desc_filet: "Espárragos a la parrilla, papas alevines, glaseado de cerezas.", menu_disclaimer: "*Contiene ingredientes crudos. El consumo puede aumentar riesgo de enfermedad.", amenities_title: "Piscina y Gimnasio", pool_title: "Piscina", gym_title: "Gimnasio", amenities_disclaimer: "Supervisión requerida para menores de 16.", wifi_title: "Acceso Wi-Fi", wifi_2: `Si no carga, visite <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded transition-colors">cnn.com</code>`, wifi_5: `Soporte: (888)-830-5099`, info_title: "Información", info_checkout_label: "Salida", info_checkout_time: "12:00 PM", info_address_label: "Dirección", info_address_value: "10 East Thomas Road, Phoenix, AZ 85012", info_phone_label: "Teléfono", info_phone_value: "(602)-222-1111", info_text_label: "Texto", info_text_value: "(928)-857-4811", info_email_label: "Correo", info_email_value: "phxes_fo@hilton.com", footer_slogan: "Para la Estancia", menu_salads: "Ensaladas", item_babybleu: "Ensalada Baby Bleu", desc_babybleu: "Verduras tiernas, pepitas asadas, manzana roja, queso azul.", item_spinach: "Espinaca y Nuez", desc_spinach: "Tomates cherry, nueces confitadas, queso fresco.", item_caesar: "César S.R.T.", desc_caesar: "Crutones al ajo, parmesano reggiano.", item_cobb: "Cobb de Arizona", desc_cobb: "Maíz asado, nopalitos, tomate, tocino habanero.", menu_handheld: "Sándwiches", desc_handheld: "Con papas fritas o fruta.", item_club: "Club de Pavo", desc_club: "Tocino, pavo, queso munster, alioli de arándano.", item_burger: "Hamburguesa Steakhouse", desc_burger: "Carne angus, lechuga, tomate, cebolla frita.", item_pastrami: "Reuben de Pastrami", desc_pastrami: "Pastrami, queso gouda chipotle, ensalada de col.", item_blackbleu: "Black & Bleu", desc_blackbleu: "Carne angus especiada, queso azul, pico de gallo.", menu_dessert: "Postre", item_cake: "Pastel de Zanahoria", item_pie: "Pastel de Manzana", item_cheesecake: "Cheesecake NY", item_choc_cake: "Pastel de Chocolate", dir_cat_quick: "Comida Rápida", dir_cat_dining: "Restaurantes", dir_cat_coffee: "Café y Mañanas", dir_cat_essentials: "Esenciales y Urgencias", dir_cat_transit: "Transporte", dir_cat_attractions: "Atracciones",
                 dir_directions: "Cómo llegar &rarr;",
                 dir_item_woodpecker_title: "The Green Woodpecker",
                 dir_item_woodpecker_desc: "Busque la pared rosa y el mural de Jeremy Fish; el mejor lugar para un taco rápido y cerveza artesanal local.",
@@ -1269,7 +1280,7 @@
                 dir_item_window_title: "Window Coffee Bar",
                 dir_item_window_desc: "Nommé le 6e meilleur café d'Amérique par Yelp ; la tartine à l'avocat est remarquable.",
                 dir_item_darkhall_title: "Dark Hall Coffee",
-                dir_item_darkhall_desc: "Le thème Gothique Métal Végan est immersif ; même les non-végans seront impressionnés par les pâtisseries.",
+                dir_item_darkhall_desc: "Le thème Gothique Métal Végan est immersiv ; même les non-végans seront impressionnés par les pâtisseries.",
                 dir_item_walgreens_title: "Walgreens (24h/24)",
                 dir_item_walgreens_desc: "La clinique interne est spécialisée dans les dépistages de bien-être sans rendez-vous.",
                 dir_item_nextcare_title: "NextCare Urgent Care",
@@ -1489,7 +1500,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             
-            // Tab Logic
+            // PERFORMANCE: Double rAF instead of synchronous reflow (offsetWidth hack) eliminates layout thrashing
             const tabs = [
                 { id: 'guide', btn: document.getElementById('btn-guide'), view: document.getElementById('view-guide') },
                 { id: 'menu', btn: document.getElementById('btn-menu'), view: document.getElementById('view-menu') },
@@ -1498,19 +1509,22 @@
 
             function switchTab(selectedId) {
                 tabs.forEach(tab => {
-                    // Reset animation by removing and re-adding class
-                    tab.view.classList.remove('view-section');
-                    void tab.view.offsetWidth; // trigger reflow
-                    
                     if (tab.id === selectedId) {
                         tab.btn.classList.add('bg-brand', 'text-white', 'shadow-md');
                         tab.btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-100', 'dark:hover:bg-slate-700');
-                        tab.view.classList.remove('hidden');
-                        tab.view.classList.add('view-section'); // Add animation class back
+                        tab.view.classList.remove('hidden', 'view-section');
+                        
+                        // Restart animation without layout thrashing
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                tab.view.classList.add('view-section');
+                            });
+                        });
                     } else {
                         tab.btn.classList.remove('bg-brand', 'text-white', 'shadow-md');
                         tab.btn.classList.add('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-100', 'dark:hover:bg-slate-700');
                         tab.view.classList.add('hidden');
+                        tab.view.classList.remove('view-section');
                     }
                 });
             }
@@ -1519,24 +1533,27 @@
                 if(tab.btn) tab.btn.addEventListener('click', () => switchTab(tab.id));
             });
 
-            // Translation Logic
+            // PERFORMANCE: Cache translatable elements once so we don't query the DOM every time
             let currentLang = 'en';
+            const translatableElements = Array.from(document.querySelectorAll('[data-key]'));
 
             function translatePage(language) {
                 currentLang = language;
                 const langData = { ...translations['en'], ...translations[language] };
 
-                document.querySelectorAll('[data-key]').forEach(element => {
+                translatableElements.forEach(element => {
                     const key = element.getAttribute('data-key');
-                    if (langData[key]) {
+                    // PERFORMANCE: Only update DOM if text actually changes
+                    if (langData[key] && element.innerHTML !== langData[key]) {
                         element.innerHTML = langData[key];
                     }
                 });
-                updateClock(); 
+                updateClock(true); // Force update clock format
             }
             
             const languageSelector = document.getElementById('languageSelector');
             if (languageSelector) {
+                // Event delegation is already used here, which is optimal
                 languageSelector.addEventListener('click', function(e) {
                     const button = e.target.closest('button[data-lang]');
                     if (!button) return;
@@ -1549,7 +1566,8 @@
                 });
             }
 
-            // Accordion Logic for both Guide and Directory
+            // PERFORMANCE: Optimized Event Delegation for Accordions.
+            // Only targets the currently active card instead of querying all cards every click.
             ['view-guide', 'view-directory'].forEach(viewId => {
                 const accordionContainer = document.getElementById(viewId);
                 if (accordionContainer) {
@@ -1560,14 +1578,21 @@
                         const card = button.closest('.menu-card');
                         const wasActive = card.classList.contains('active');
                         
-                        accordionContainer.querySelectorAll('.menu-card').forEach(c => {
-                            c.classList.remove('active');
-                            c.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+                        // Find strictly what's open and close it (much faster than iterating over all cards)
+                        const currentlyActive = accordionContainer.querySelectorAll('.menu-card.active');
+                        currentlyActive.forEach(c => {
+                            if (c !== card) {
+                                c.classList.remove('active');
+                                c.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+                            }
                         });
                         
                         if (!wasActive) {
                             card.classList.add('active');
                             button.setAttribute('aria-expanded', 'true');
+                        } else {
+                             card.classList.remove('active');
+                             button.setAttribute('aria-expanded', 'false');
                         }
                     });
                 }
@@ -1578,6 +1603,7 @@
             if (wifiCode) {
                 wifiCode.addEventListener('click', function() {
                     const code = 'E2026';
+                    // Fallback to older method if navigator.clipboard is blocked by iframe
                     const textArea = document.createElement("textarea");
                     textArea.value = code;
                     document.body.appendChild(textArea);
@@ -1591,7 +1617,7 @@
                             copyText.innerText = originalText;
                         }, 2000);
                     } catch (err) {
-                        console.error('Fallback: Oops, unable to copy', err);
+                        console.error('Unable to copy', err);
                     }
                     document.body.removeChild(textArea);
                 });
@@ -1619,10 +1645,12 @@
                 }
             }
 
-            // Clock & Weather Logic
-            function updateClock() {
+            // PERFORMANCE: Clock Optimization (Gated Updates)
+            let lastTimeString = "";
+            const clockElement = document.getElementById('live-clock');
+            
+            function updateClock(forceUpdate = false) {
                 const now = new Date();
-                
                 const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
                 const timeOptions = { hour: 'numeric', minute: '2-digit' };
 
@@ -1634,15 +1662,18 @@
                 
                 const dateString = now.toLocaleDateString(locale, dateOptions);
                 const timeString = now.toLocaleTimeString(locale, timeOptions);
+                const newTime = `${dateString} | ${timeString}`;
                 
-                const clockElement = document.getElementById('live-clock');
-                if (clockElement) {
-                    clockElement.innerHTML = `${dateString} | ${timeString}`;
+                // Only touch the DOM if the minute actually changed or language switched
+                if ((forceUpdate || newTime !== lastTimeString) && clockElement) {
+                    clockElement.innerHTML = newTime;
+                    lastTimeString = newTime;
                 }
             }
             setInterval(updateClock, 1000);
-            updateClock();
+            updateClock(true);
 
+            // PERFORMANCE: Weather fetch is now deferred to prevent blocking the initial render cycle
             async function fetchWeather() {
                 const weatherEl = document.getElementById('live-weather');
                 try {
@@ -1671,9 +1702,15 @@
                     }
                 }
             }
-            fetchWeather();
+            
+            // Execute non-critical tasks when the browser is idle
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(fetchWeather);
+            } else {
+                setTimeout(fetchWeather, 500);
+            }
 
-            // Splash Screen Removal Logic
+            // Cinematic splash screen delay restored
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) splash.classList.add('hidden-splash');
